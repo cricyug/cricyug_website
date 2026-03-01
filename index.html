@@ -1,48 +1,488 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>CricYug - AI Cricket Era</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-            color: white;
-            text-align: center;
-        }
-        .container {
-            padding: 100px 20px;
-        }
-        h1 {
-            font-size: 48px;
-        }
-        p {
-            font-size: 20px;
-            margin-top: 20px;
-        }
-        .btn {
-            margin-top: 30px;
-            padding: 15px 30px;
-            background: #ffcc00;
-            color: black;
-            border: none;
-            border-radius: 5px;
-            font-size: 18px;
-            cursor: pointer;
-        }
-        .btn:hover {
-            background: #ffaa00;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CricYug — AI Powered Cricket</title>
+  <meta name="description" content="CricYug: Live Scores, Cricket News, AI Predictions & Analytics." />
+  <style>
+    :root{
+      --bg1:#0b1f2a;
+      --bg2:#0f3443;
+      --card: rgba(255,255,255,.08);
+      --card2: rgba(255,255,255,.06);
+      --text:#eaf3f8;
+      --muted: rgba(234,243,248,.72);
+      --brand:#ffcc00;
+      --brand2:#ffaa00;
+      --line: rgba(255,255,255,.12);
+      --shadow: 0 12px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans";
+      color:var(--text);
+      background: radial-gradient(1200px 800px at 20% 10%, #163b48 0%, transparent 55%),
+                  radial-gradient(1000px 700px at 90% 25%, #1a2b5a 0%, transparent 55%),
+                  linear-gradient(135deg, var(--bg1), var(--bg2));
+      min-height:100vh;
+    }
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:1100px; margin:0 auto; padding:0 18px}
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      background: rgba(7,18,24,.65);
+      backdrop-filter: blur(10px);
+      border-bottom:1px solid var(--line);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0;
+      gap:12px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:800; letter-spacing:.2px;
+    }
+    .logo{
+      width:38px; height:38px; border-radius:12px;
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      color:#111; display:grid; place-items:center;
+      box-shadow: var(--shadow);
+      font-weight:900;
+    }
+    .navlinks{
+      display:flex; gap:14px; align-items:center;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .navlinks a{
+      font-size:14px;
+      color:var(--muted);
+      padding:8px 10px;
+      border-radius:10px;
+      border:1px solid transparent;
+    }
+    .navlinks a:hover{
+      color:var(--text);
+      border-color:var(--line);
+      background: rgba(255,255,255,.05);
+    }
+    .cta{
+      display:inline-flex; align-items:center; gap:10px;
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      color:#111;
+      padding:10px 14px;
+      border-radius:12px;
+      font-weight:800;
+      border:0;
+      cursor:pointer;
+      box-shadow: var(--shadow);
+      white-space:nowrap;
+    }
+    .cta:active{transform: translateY(1px)}
+    .hero{
+      padding:44px 0 18px;
+    }
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    .heroCard{
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.05));
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      padding:22px;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .chip{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      padding:7px 10px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background: rgba(255,255,255,.05);
+      color:var(--muted);
+      font-size:13px;
+      width:fit-content;
+    }
+    .h1{
+      margin:12px 0 10px;
+      font-size:38px;
+      line-height:1.1;
+      letter-spacing:-.4px;
+    }
+    .sub{
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.6;
+      margin:0 0 16px;
+      max-width:60ch;
+    }
+    .heroActions{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-top:8px;
+    }
+    .ghost{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:10px 14px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      color:var(--text);
+      font-weight:700;
+    }
+    .ghost:hover{background: rgba(255,255,255,.08)}
+    .sideCard{
+      background: rgba(255,255,255,.06);
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      padding:18px;
+    }
+    .kpiRow{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+      margin-top:12px;
+    }
+    .kpi{
+      background: rgba(0,0,0,.18);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:12px;
+    }
+    .kpi b{display:block; font-size:18px}
+    .kpi span{color:var(--muted); font-size:12px}
+
+    .section{padding:14px 0}
+    .sectionTitle{
+      display:flex; align-items:end; justify-content:space-between; gap:12px;
+      margin:18px 0 10px;
+    }
+    .sectionTitle h2{
+      margin:0;
+      font-size:20px;
+      letter-spacing:-.2px;
+    }
+    .sectionTitle p{margin:0; color:var(--muted); font-size:13px}
+
+    .grid3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+    }
+    .grid2{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap:12px;
+    }
+    .card{
+      background: var(--card2);
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      padding:16px;
+    }
+    .card:hover{background: rgba(255,255,255,.08)}
+    .pill{
+      display:inline-flex;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      color:var(--muted);
+      font-size:12px;
+      margin-bottom:10px;
+    }
+    .card h3{margin:0 0 8px; font-size:16px}
+    .card p{margin:0; color:var(--muted); font-size:13px; line-height:1.6}
+    .meta{margin-top:10px; display:flex; gap:10px; flex-wrap:wrap; color:var(--muted); font-size:12px}
+    .divider{height:1px; background:var(--line); margin:18px 0}
+
+    .footer{
+      padding:24px 0 40px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .footerGrid{
+      display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
+      border-top:1px solid var(--line);
+      padding-top:16px;
+    }
+    .smallLinks{display:flex; gap:12px; flex-wrap:wrap}
+    .smallLinks a{color:var(--muted)}
+    .smallLinks a:hover{color:var(--text)}
+    .badge{
+      display:inline-flex; gap:8px; align-items:center;
+      padding:8px 10px;
+      border-radius:12px;
+      border:1px dashed rgba(255,255,255,.18);
+      background: rgba(255,255,255,.04);
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px){
+      .heroGrid{grid-template-columns: 1fr}
+      .h1{font-size:32px}
+      .grid3{grid-template-columns: 1fr}
+      .grid2{grid-template-columns: 1fr}
+      .navlinks{display:none;}
+    }
+  </style>
 </head>
+
 <body>
-    <div class="container">
-        <h1>🏏 CricYug</h1>
-        <p>Welcome to the AI Powered Cricket Era</p>
-        <p>Live Scores | AI Predictions | Cricket News</p>
-        <button class="btn">Coming Soon 🚀</button>
+  <header class="topbar">
+    <div class="wrap">
+      <div class="nav">
+        <div class="brand">
+          <div class="logo">CY</div>
+          <div>
+            <div style="font-size:15px; line-height:1;">CricYug</div>
+            <div style="font-size:12px; color:var(--muted); line-height:1.2;">AI Powered Cricket</div>
+          </div>
+        </div>
+
+        <nav class="navlinks" aria-label="Primary">
+          <a href="#live">Live</a>
+          <a href="#news">News</a>
+          <a href="#ai">AI</a>
+          <a href="#about">About</a>
+        </nav>
+
+        <button class="cta" onclick="document.getElementById('live').scrollIntoView({behavior:'smooth'})">
+          🚀 Explore
+        </button>
+      </div>
     </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="wrap">
+        <div class="heroGrid">
+          <div class="heroCard">
+            <div class="chip">🏏 Live Scores • 🧠 AI • 📰 Cricket News</div>
+            <h1 class="h1">Welcome to the <span style="color:var(--brand)">AI Powered</span> Cricket Era</h1>
+            <p class="sub">
+              CricYug is building a modern cricket platform: live match center, fast news,
+              and AI insights — simple, clean, and made for mobile-first fans.
+            </p>
+
+            <div class="heroActions">
+              <a class="cta" href="#live">View Live Center</a>
+              <a class="ghost" href="#news">Read News</a>
+              <a class="ghost" href="#ai">AI Features</a>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="badge">
+              ✅ Secure HTTPS • ✅ Global Domain • ✅ Fast Static Hosting
+            </div>
+          </div>
+
+          <aside class="sideCard">
+            <div class="pill">🔥 Today’s Focus</div>
+            <h3 style="margin:0 0 8px;">MVP Roadmap (First Version)</h3>
+            <p style="margin:0; color:var(--muted); font-size:13px; line-height:1.6;">
+              1) Live match UI → 2) News posts → 3) Legal API → 4) Android app → 5) AI predictions
+            </p>
+
+            <div class="kpiRow">
+              <div class="kpi">
+                <b>Week 1</b>
+                <span>Website + Pages</span>
+              </div>
+              <div class="kpi">
+                <b>Week 2</b>
+                <span>Live Score API</span>
+              </div>
+              <div class="kpi">
+                <b>Week 3</b>
+                <span>Android App MVP</span>
+              </div>
+              <div class="kpi">
+                <b>Week 4</b>
+                <span>AI Insights v1</span>
+              </div>
+            </div>
+
+            <div class="divider"></div>
+            <div class="pill">Owner Note</div>
+            <p style="margin:0; color:var(--muted); font-size:13px; line-height:1.6;">
+              This is not Cricbuzz. CricYug is a new product with unique design + AI features.
+            </p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIVE -->
+    <section id="live" class="section">
+      <div class="wrap">
+        <div class="sectionTitle">
+          <h2>Live Match Center</h2>
+          <p>API integration next (currently demo cards)</p>
+        </div>
+
+        <div class="grid3">
+          <div class="card">
+            <div class="pill">LIVE • Demo</div>
+            <h3>IND vs AUS</h3>
+            <p>India 142/3 (16.2 ov)</p>
+            <div class="meta">
+              <span>Target: 189</span>
+              <span>Req RR: 8.6</span>
+              <span>Last ball: 4</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="pill">UPCOMING • Demo</div>
+            <h3>CSK vs MI</h3>
+            <p>Starts in 2h 15m</p>
+            <div class="meta">
+              <span>Venue: Chennai</span>
+              <span>Series: IPL</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="pill">RESULT • Demo</div>
+            <h3>PAK vs NZ</h3>
+            <p>NZ won by 5 wkts</p>
+            <div class="meta">
+              <span>MoM: Player X</span>
+              <span>Series: T20I</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEWS -->
+    <section id="news" class="section">
+      <div class="wrap">
+        <div class="sectionTitle">
+          <h2>Cricket News</h2>
+          <p>We’ll publish original news/analysis (no copy-paste)</p>
+        </div>
+
+        <div class="grid3">
+          <article class="card">
+            <div class="pill">FEATURE</div>
+            <h3>How CricYug Will Use AI in Cricket</h3>
+            <p>Win probability, player form trends, matchup insights — explained in simple language.</p>
+            <div class="meta"><span>Read in 2 min</span><span>Coming soon</span></div>
+          </article>
+
+          <article class="card">
+            <div class="pill">ANALYSIS</div>
+            <h3>Top 5 Powerplay Strategies (T20)</h3>
+            <p>Data-backed ideas teams use to maximize powerplay runs and minimize wickets.</p>
+            <div class="meta"><span>Read in 3 min</span><span>Coming soon</span></div>
+          </article>
+
+          <article class="card">
+            <div class="pill">UPDATE</div>
+            <h3>CricYug Platform Update</h3>
+            <p>We’re building: Live center → Android app → AI predictions → multilingual.</p>
+            <div class="meta"><span>Read in 1 min</span><span>Coming soon</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI -->
+    <section id="ai" class="section">
+      <div class="wrap">
+        <div class="sectionTitle">
+          <h2>AI Features (Roadmap)</h2>
+          <p>These will make CricYug different</p>
+        </div>
+
+        <div class="grid2">
+          <div class="card">
+            <div class="pill">AI • Prediction</div>
+            <h3>Win Probability</h3>
+            <p>Over-by-over win chance based on score, wickets, pitch behavior and team strength.</p>
+          </div>
+          <div class="card">
+            <div class="pill">AI • Insights</div>
+            <h3>Player Form & Matchups</h3>
+            <p>Who dominates who? Batter vs bowler trends, strike-rate zones, and weakness detection.</p>
+          </div>
+          <div class="card">
+            <div class="pill">AI • Coach</div>
+            <h3>AI Cricket Coach</h3>
+            <p>Simple practice plans: batting timing, bowling lengths, fielding drills — personalized.</p>
+          </div>
+          <div class="card">
+            <div class="pill">AI • Multilingual</div>
+            <h3>Auto Translate News</h3>
+            <p>Hindi + English first, then more languages for global cricket fans.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section">
+      <div class="wrap">
+        <div class="sectionTitle">
+          <h2>About CricYug</h2>
+          <p>New era of cricket products</p>
+        </div>
+
+        <div class="card">
+          <h3 style="margin-top:0;">Our Mission</h3>
+          <p>
+            Build a clean and fast cricket platform with original content and legal data sources.
+            CricYug focuses on user experience + AI features, not copying others.
+          </p>
+          <div class="meta">
+            <span>Contact: coming soon</span>
+            <span>Android app: in progress</span>
+            <span>AI: roadmap</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="wrap">
+        <div class="footerGrid">
+          <div>
+            <div style="font-weight:800; color:var(--text);">CricYug</div>
+            <div>© <span id="y"></span> CricYug. All rights reserved.</div>
+          </div>
+          <div class="smallLinks">
+            <a href="#live">Live</a>
+            <a href="#news">News</a>
+            <a href="#ai">AI</a>
+            <a href="#about">About</a>
+          </div>
+        </div>
+        <div style="margin-top:10px; font-size:12px; color:var(--muted);">
+          Disclaimer: CricYug is an independent platform and is not affiliated with any other cricket brand.
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
