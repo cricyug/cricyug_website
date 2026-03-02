@@ -2,475 +2,542 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CricYug — Live Cricket + AI</title>
-  <meta name="description" content="CricYug: Live Matches, Cricket News, and AI Insights. Fast, modern, mobile-first." />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>CricYug — Live Cricket + AI Insights</title>
+  <meta name="description" content="CricYug: Live match center, cricket news, and AI insights — mobile-first, fast and clean." />
 
   <style>
     :root{
-      --bg:#07121a;
-      --bg2:#0b1f2a;
-      --card:rgba(255,255,255,.08);
-      --card2:rgba(255,255,255,.06);
-      --line:rgba(255,255,255,.12);
-      --text:#eaf3f8;
-      --muted:rgba(234,243,248,.72);
-      --brand:#ffcc00;
-      --brand2:#ffaa00;
+      --bg:#071a23;
+      --bg2:#0b2330;
+      --card:rgba(255,255,255,.06);
+      --card2:rgba(255,255,255,.08);
+      --stroke:rgba(255,255,255,.10);
+      --text:#eaf2f7;
+      --muted:rgba(234,242,247,.72);
+      --brand:#f7b500;
+      --brand2:#ffd36a;
       --good:#22c55e;
-      --warn:#f59e0b;
       --bad:#ef4444;
-      --shadow:0 16px 40px rgba(0,0,0,.45);
-      --r:18px;
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+      --radius: 22px;
     }
 
     *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans";
-      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       background:
-        radial-gradient(1100px 700px at 10% 10%, #173a48 0%, transparent 55%),
-        radial-gradient(900px 600px at 90% 20%, #1a2b5a 0%, transparent 55%),
-        linear-gradient(135deg, var(--bg), var(--bg2));
-      min-height:100vh;
+        radial-gradient(1200px 600px at 30% 10%, rgba(247,181,0,.14), transparent 60%),
+        radial-gradient(1200px 600px at 70% 30%, rgba(34,197,94,.08), transparent 60%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      color:var(--text);
+      overflow-x:hidden;
     }
+
     a{color:inherit; text-decoration:none}
-    .wrap{max-width:1150px; margin:0 auto; padding:0 18px}
+    .wrap{max-width:1100px; margin:0 auto; padding:0 18px}
     .topbar{
       position:sticky; top:0; z-index:50;
-      background: rgba(7,18,26,.68);
-      backdrop-filter: blur(10px);
-      border-bottom:1px solid var(--line);
+      backdrop-filter: blur(14px);
+      background: rgba(6,18,26,.55);
+      border-bottom:1px solid rgba(255,255,255,.08);
     }
     .nav{
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
-      padding:14px 0;
+      display:flex; align-items:center; justify-content:space-between;
+      height:74px;
     }
     .brand{
       display:flex; align-items:center; gap:12px;
-      font-weight:900;
+      font-weight:800;
       letter-spacing:.2px;
     }
     .logo{
-      width:40px; height:40px; border-radius:14px;
+      width:44px; height:44px; border-radius:14px;
       display:grid; place-items:center;
-      background: linear-gradient(135deg, var(--brand), var(--brand2));
-      color:#0b0f12;
-      box-shadow: var(--shadow);
-      font-weight:950;
-    }
-    .navlinks{display:flex; gap:12px; align-items:center; flex-wrap:wrap}
-    .navlinks a{
-      font-size:14px; color:var(--muted);
-      padding:8px 10px;
-      border-radius:12px;
-      border:1px solid transparent;
-    }
-    .navlinks a:hover{
-      color:var(--text);
-      border-color:var(--line);
-      background: rgba(255,255,255,.05);
-    }
-    .cta{
-      display:inline-flex; align-items:center; gap:10px;
-      padding:10px 14px;
-      border-radius:14px;
-      border:0;
-      cursor:pointer;
+      background: linear-gradient(135deg, #f7b500, #ffdb7a);
+      color:#111;
+      box-shadow: 0 10px 30px rgba(247,181,0,.25);
       font-weight:900;
-      color:#0b0f12;
-      background: linear-gradient(135deg, var(--brand), var(--brand2));
-      box-shadow: var(--shadow);
-      white-space:nowrap;
     }
-    .cta:active{transform: translateY(1px)}
-    .ghost{
-      display:inline-flex; align-items:center; gap:8px; justify-content:center;
-      padding:10px 14px;
+    .brand small{display:block; font-weight:600; color:var(--muted); letter-spacing:0}
+    .links{display:flex; gap:18px; align-items:center}
+    .links a{
+      font-weight:650;
+      color:rgba(234,242,247,.85);
+      padding:10px 10px;
+      border-radius:12px;
+    }
+    .links a:hover{background:rgba(255,255,255,.06)}
+    .cta{
+      display:flex; gap:10px; align-items:center;
+    }
+
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:12px 16px;
       border-radius:14px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.05);
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
       color:var(--text);
-      font-weight:800;
+      font-weight:750;
       cursor:pointer;
+      transition:.2s transform, .2s background, .2s border;
+      user-select:none;
     }
-    .ghost:hover{background: rgba(255,255,255,.08)}
-    .hero{padding:44px 0 18px}
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.08)}
+    .btn.primary{
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      border-color: transparent;
+      color:#101418;
+      box-shadow: 0 16px 40px rgba(247,181,0,.18);
+    }
+    .btn.primary:hover{transform: translateY(-2px)}
+    .btn.small{padding:10px 14px; border-radius:12px; font-size:13px}
+    .btn.ghost{background:transparent}
+    .pill{
+      display:inline-flex;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.4px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color: rgba(234,242,247,.88);
+    }
+
+    /* Hero */
+    .hero{padding:44px 0 24px}
     .heroGrid{
       display:grid;
-      grid-template-columns: 1.25fr .75fr;
-      gap:16px;
-      align-items:stretch;
+      grid-template-columns: 1.25fr .85fr;
+      gap:18px;
     }
-    .heroCard{
-      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.05));
-      border:1px solid var(--line);
-      border-radius: var(--r);
-      padding:22px;
+    .panel{
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: var(--radius);
       box-shadow: var(--shadow);
+      padding:22px;
       position:relative;
       overflow:hidden;
     }
-    .chip{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:7px 10px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.05);
-      color:var(--muted);
-      font-size:13px;
-      width:fit-content;
+    .panel::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(800px 300px at 30% 0%, rgba(247,181,0,.18), transparent 60%),
+                  radial-gradient(800px 300px at 80% 20%, rgba(34,197,94,.12), transparent 60%);
+      opacity:.8;
+      pointer-events:none;
     }
-    .h1{
-      margin:12px 0 10px;
-      font-size:40px;
-      line-height:1.1;
+    .panel > *{position:relative}
+    h1{
+      margin:14px 0 10px;
+      font-size:44px;
+      line-height:1.05;
       letter-spacing:-.6px;
     }
+    .hl{color:var(--brand)}
     .sub{
-      margin:0 0 16px;
+      margin:0;
       color:var(--muted);
-      font-size:16px;
-      line-height:1.65;
-      max-width:62ch;
+      font-size:15.5px;
+      line-height:1.7;
+      max-width:60ch;
     }
-    .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:8px}
-    .side{
-      background: rgba(255,255,255,.06);
-      border:1px solid var(--line);
-      border-radius: var(--r);
-      padding:18px;
-    }
-    .pill{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:6px 10px;
+    .heroBtns{display:flex; gap:10px; flex-wrap:wrap; margin-top:18px}
+    .badges{display:flex; gap:10px; flex-wrap:wrap; margin-top:16px}
+    .badge{
+      display:inline-flex; gap:8px; align-items:center;
+      padding:8px 10px;
       border-radius:999px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.05);
-      color:var(--muted);
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.06);
+      color: rgba(234,242,247,.86);
+      font-weight:700;
       font-size:12px;
-      margin-bottom:10px;
-      width:fit-content;
     }
-    .kpis{
+
+    .sideTitle{
+      margin:0 0 8px;
+      font-size:14px;
+      color: rgba(234,242,247,.84);
+      display:flex; align-items:center; gap:8px;
+      font-weight:850;
+      letter-spacing:.2px;
+    }
+    .roadTitle{margin:0; font-weight:900; font-size:18px}
+    .roadText{margin:8px 0 0; color:var(--muted); line-height:1.65; font-size:13.5px}
+    .weekGrid{
+      margin-top:14px;
       display:grid;
       grid-template-columns: 1fr 1fr;
       gap:10px;
-      margin-top:12px;
     }
-    .kpi{
-      background: rgba(0,0,0,.18);
-      border:1px solid var(--line);
-      border-radius:14px;
+    .week{
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.06);
       padding:12px;
     }
-    .kpi b{display:block; font-size:18px}
-    .kpi span{color:var(--muted); font-size:12px}
-    .divider{height:1px; background:var(--line); margin:16px 0}
-    .section{padding:14px 0}
-    .sectionTitle{
-      display:flex; align-items:end; justify-content:space-between; gap:12px;
-      margin:18px 0 10px;
-      flex-wrap:wrap;
+    .week b{display:block; font-size:14px}
+    .week span{display:block; margin-top:4px; color:var(--muted); font-size:12.5px}
+
+    /* Sections */
+    section{padding:26px 0}
+    .secHead{
+      display:flex; align-items:flex-end; justify-content:space-between;
+      gap:14px; margin-bottom:12px;
     }
-    .sectionTitle h2{margin:0; font-size:20px; letter-spacing:-.2px}
-    .sectionTitle p{margin:0; color:var(--muted); font-size:13px}
-    .grid3{display:grid; grid-template-columns:repeat(3, 1fr); gap:12px}
-    .grid2{display:grid; grid-template-columns:repeat(2, 1fr); gap:12px}
+    .secHead h2{
+      margin:0;
+      font-size:22px;
+      letter-spacing:-.2px;
+    }
+    .secHead p{
+      margin:0;
+      color:var(--muted);
+      font-size:13.5px;
+    }
+
+    .grid3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+    }
     .card{
-      background: var(--card2);
-      border:1px solid var(--line);
-      border-radius: var(--r);
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.06);
       padding:16px;
-      transition: transform .08s ease, background .2s ease, border-color .2s ease;
+      box-shadow: 0 10px 26px rgba(0,0,0,.20);
+      position:relative;
+      overflow:hidden;
+      min-height: 150px;
     }
-    .card:hover{
-      background: rgba(255,255,255,.085);
-      transform: translateY(-1px);
-      border-color: rgba(255,255,255,.18);
+    .card:hover{background: rgba(255,255,255,.075)}
+    .card h3{margin:10px 0 8px; font-size:16px; letter-spacing:-.2px}
+    .meta{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+      margin-top:8px;
     }
-    .card h3{margin:0 0 8px; font-size:16px}
-    .card p{margin:0; color:var(--muted); font-size:13px; line-height:1.6}
-    .meta{margin-top:10px; display:flex; gap:10px; flex-wrap:wrap; color:var(--muted); font-size:12px}
-    .statusDot{
-      width:10px; height:10px; border-radius:999px; display:inline-block;
-      background: var(--warn);
-      box-shadow: 0 0 0 4px rgba(245,158,11,.14);
+    .meta span{
+      display:inline-flex;
+      gap:8px; align-items:center;
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.16);
+      color: rgba(234,242,247,.88);
+      font-size:12px;
+      font-weight:750;
     }
-    .statusDot.live{
+    .dot{
+      width:8px; height:8px; border-radius:99px;
       background: var(--good);
       box-shadow: 0 0 0 4px rgba(34,197,94,.14);
     }
-    .statusDot.done{
-      background: var(--bad);
-      box-shadow: 0 0 0 4px rgba(239,68,68,.14);
+    .dot.gray{background: rgba(234,242,247,.35); box-shadow:none}
+    .dot.red{background: var(--bad); box-shadow: 0 0 0 4px rgba(239,68,68,.14)}
+    .row{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:10px;
     }
-    .miniBtn{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:8px 10px;
-      border-radius:12px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.05);
-      color:var(--text);
-      font-weight:800;
-      cursor:pointer;
-      font-size:13px;
+
+    .toolbar{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
     }
-    .miniBtn:hover{background: rgba(255,255,255,.08)}
-    .footer{
-      padding:26px 0 40px;
-      color:var(--muted);
-      font-size:13px;
+    .input{
+      height:40px;
+      padding:0 12px;
+      border-radius:14px;
+      outline:none;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      color: var(--text);
+      font-weight:650;
+      width:260px;
+    }
+    .input::placeholder{color: rgba(234,242,247,.45)}
+
+    /* Footer */
+    footer{
+      padding:28px 0 40px;
+      border-top:1px solid rgba(255,255,255,.08);
+      background: rgba(0,0,0,.12);
+      margin-top:24px;
     }
     .footerGrid{
-      display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
-      border-top:1px solid var(--line);
-      padding-top:16px;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:14px;
+      align-items:start;
     }
-    .smallLinks{display:flex; gap:12px; flex-wrap:wrap}
-    .smallLinks a{color:var(--muted)}
-    .smallLinks a:hover{color:var(--text)}
+    .smallLinks a{display:inline-block; margin-right:12px; color:rgba(234,242,247,.8)}
+    .smallLinks a:hover{text-decoration:underline}
 
-    @media (max-width: 900px){
-      .heroGrid{grid-template-columns: 1fr}
-      .h1{font-size:32px}
-      .grid3{grid-template-columns: 1fr}
-      .grid2{grid-template-columns: 1fr}
-      .navlinks{display:none}
+    /* Responsive */
+    @media (max-width: 980px){
+      .heroGrid{grid-template-columns:1fr}
+      h1{font-size:38px}
+      .grid3{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width: 620px){
+      .links{display:none}
+      .grid3{grid-template-columns:1fr}
+      h1{font-size:34px}
+      .input{width:100%}
     }
   </style>
 </head>
 
 <body>
-  <header class="topbar">
+  <!-- Topbar -->
+  <div class="topbar">
     <div class="wrap">
       <div class="nav">
         <div class="brand">
           <div class="logo">CY</div>
           <div>
-            <div style="font-size:15px; line-height:1;">CricYug</div>
-            <div style="font-size:12px; color:var(--muted); line-height:1.2;">Live Cricket • AI Insights</div>
+            <div style="font-size:16px">CricYug</div>
+            <small>Live Cricket • AI Insights</small>
           </div>
         </div>
 
-        <nav class="navlinks" aria-label="Primary">
+        <div class="links">
           <a href="#live">Live</a>
           <a href="#news">News</a>
           <a href="#ai">AI</a>
           <a href="#about">About</a>
-        </nav>
+        </div>
 
-        <button class="cta" onclick="document.getElementById('live').scrollIntoView({behavior:'smooth'})">🚀 Live Center</button>
+        <div class="cta">
+          <a class="btn primary" href="#live">🚀 Live Center</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="wrap">
+      <div class="heroGrid">
+        <div class="panel">
+          <div class="pill">🏏 Live Matches • 📰 News • 🤖 AI</div>
+          <h1>
+            Cricket ka <span class="hl">Naya Yug</span> — Fast & Modern
+          </h1>
+          <p class="sub">
+            CricYug shows live matches from a legal API, plus we’ll add AI predictions,
+            player insights, and multilingual content. Clean design, mobile-first.
+          </p>
+
+          <div class="heroBtns">
+            <a class="btn primary" href="#live">✅ View Live Matches</a>
+            <a class="btn" href="#news">📰 Read News</a>
+            <a class="btn ghost" href="#ai">🧠 AI Features</a>
+          </div>
+
+          <div class="badges">
+            <div class="badge">🔒 HTTPS Ready</div>
+            <div class="badge">🌍 Global Domain</div>
+            <div class="badge">⚡ Fast Hosting</div>
+          </div>
+        </div>
+
+        <div class="panel" style="background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.045));">
+          <div class="sideTitle">🔥 MVP Roadmap</div>
+          <div class="roadTitle">Build Plan (Fast)</div>
+          <p class="roadText">
+            1) Website Live ✅ → 2) Live Matches ✅ → 3) Match details → 4) Android App → 5) AI Predictions
+          </p>
+
+          <div class="weekGrid">
+            <div class="week"><b>Week 1</b><span>Design + Pages</span></div>
+            <div class="week"><b>Week 2</b><span>Live + Details</span></div>
+            <div class="week"><b>Week 3</b><span>Android MVP</span></div>
+            <div class="week"><b>Week 4</b><span>AI v1</span></div>
+          </div>
+
+          <div style="margin-top:14px">
+            <div class="pill">Owner Note</div>
+            <p class="roadText" style="margin-top:8px">
+              CricYug is an independent product with unique UI + features.
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </header>
 
-  <main>
-    <!-- HERO -->
-    <section class="hero">
-      <div class="wrap">
-        <div class="heroGrid">
-          <div class="heroCard">
-            <div class="chip">🏏 Live Matches • 📰 News • 🧠 AI</div>
-            <h1 class="h1">Cricket ka <span style="color:var(--brand)">Naya Yug</span> — Fast & Modern</h1>
-            <p class="sub">
-              CricYug shows live matches from a legal API, plus we’ll add AI predictions, player insights,
-              and multilingual content. Clean design, mobile-first.
-            </p>
+  <!-- LIVE -->
+  <section id="live">
+    <div class="wrap">
+      <div class="secHead">
+        <div>
+          <h2>Live Match Center</h2>
+          <p>Auto-updates from our backend API (every 30 seconds).</p>
+        </div>
 
-            <div class="actions">
-              <button class="cta" onclick="document.getElementById('live').scrollIntoView({behavior:'smooth'})">✅ View Live Matches</button>
-              <button class="ghost" onclick="document.getElementById('news').scrollIntoView({behavior:'smooth'})">📰 Read News</button>
-              <button class="ghost" onclick="document.getElementById('ai').scrollIntoView({behavior:'smooth'})">🧠 AI Features</button>
-            </div>
-
-            <div class="divider"></div>
-
-            <div style="display:flex; gap:10px; flex-wrap:wrap;">
-              <span class="pill">🔒 HTTPS Secure</span>
-              <span class="pill">🌍 Global Domain</span>
-              <span class="pill">⚡ Fast Hosting</span>
-            </div>
-          </div>
-
-          <aside class="side">
-            <div class="pill">🔥 MVP Roadmap</div>
-            <h3 style="margin:0 0 8px;">Build Plan (Fast)</h3>
-            <p style="margin:0; color:var(--muted); font-size:13px; line-height:1.6;">
-              1) Website Live ✅ → 2) Live Matches ✅ → 3) Match details → 4) Android App → 5) AI Predictions
-            </p>
-
-            <div class="kpis">
-              <div class="kpi"><b>Week 1</b><span>Design + Pages</span></div>
-              <div class="kpi"><b>Week 2</b><span>Live + Details</span></div>
-              <div class="kpi"><b>Week 3</b><span>Android MVP</span></div>
-              <div class="kpi"><b>Week 4</b><span>AI v1</span></div>
-            </div>
-
-            <div class="divider"></div>
-
-            <div class="pill">Owner Note</div>
-            <p style="margin:0; color:var(--muted); font-size:13px; line-height:1.6;">
-              CricYug is an independent product with unique UI + features.
-            </p>
-          </aside>
+        <div class="toolbar">
+          <input id="q" class="input" placeholder="Search team / match..." />
+          <button id="refreshBtn" class="btn small">🔄 Refresh</button>
         </div>
       </div>
-    </section>
 
-    <!-- LIVE -->
-    <section id="live" class="section">
-      <div class="wrap">
-        <div class="sectionTitle">
-          <div>
-            <h2>Live Match Center</h2>
-            <p id="liveSub">Auto-updates from our backend</p>
-          </div>
-          <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
-            <button class="miniBtn" onclick="loadLive(true)">🔄 Refresh</button>
-            <span class="pill" id="liveStamp">Last update: —</span>
-          </div>
-        </div>
+      <div id="liveGrid" class="grid3"></div>
+      <div id="liveStatus" style="margin-top:12px; color:var(--muted); font-size:13px;"></div>
+    </div>
+  </section>
 
-        <div class="grid3" id="liveCards">
-          <div class="card">
-            <div class="pill"><span class="statusDot"></span> Loading</div>
-            <h3>Loading matches…</h3>
-            <p>Please wait</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- NEWS -->
-    <section id="news" class="section">
-      <div class="wrap">
-        <div class="sectionTitle">
+  <!-- NEWS -->
+  <section id="news">
+    <div class="wrap">
+      <div class="secHead">
+        <div>
           <h2>Cricket News</h2>
-          <p>We will publish original content (no copy-paste)</p>
+          <p>Placeholder right now — you can add news later (original content).</p>
         </div>
+        <a class="btn small" href="#about">Why original?</a>
+      </div>
 
-        <div class="grid3">
-          <article class="card">
-            <div class="pill">FEATURE</div>
-            <h3>How CricYug will use AI in cricket</h3>
-            <p>Win probability, player form trends, matchup insights — simple language.</p>
-            <div class="meta"><span>Coming soon</span><span>2 min read</span></div>
-          </article>
-
-          <article class="card">
-            <div class="pill">ANALYSIS</div>
-            <h3>Powerplay strategies (T20)</h3>
-            <p>Data-backed ideas to maximize runs and minimize wickets.</p>
-            <div class="meta"><span>Coming soon</span><span>3 min read</span></div>
-          </article>
-
-          <article class="card">
-            <div class="pill">UPDATE</div>
-            <h3>CricYug build updates</h3>
-            <p>Live center → match details → Android app → AI insights.</p>
-            <div class="meta"><span>Coming soon</span><span>1 min read</span></div>
-          </article>
+      <div class="grid3">
+        <div class="card">
+          <div class="pill">FEATURE</div>
+          <h3>Coming soon: Daily summaries</h3>
+          <p style="margin:0; color:var(--muted); line-height:1.65;">
+            Short, clean news cards with sources + tags. No copy-paste.
+          </p>
+        </div>
+        <div class="card">
+          <div class="pill">ANALYSIS</div>
+          <h3>Match insights layout</h3>
+          <p style="margin:0; color:var(--muted); line-height:1.65;">
+            Simple bullets: key moments, turning point, standout players.
+          </p>
+        </div>
+        <div class="card">
+          <div class="pill">UPDATE</div>
+          <h3>Multilingual plan</h3>
+          <p style="margin:0; color:var(--muted); line-height:1.65;">
+            Hindi first, then English + more languages (phased rollout).
+          </p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- AI -->
-    <section id="ai" class="section">
-      <div class="wrap">
-        <div class="sectionTitle">
-          <h2>AI Features (Roadmap)</h2>
-          <p>These will make CricYug different</p>
-        </div>
-
-        <div class="grid2">
-          <div class="card">
-            <div class="pill">AI • Prediction</div>
-            <h3>Win Probability</h3>
-            <p>Over-by-over win chance using score, wickets, pitch & team strength.</p>
-          </div>
-          <div class="card">
-            <div class="pill">AI • Insights</div>
-            <h3>Player Form & Matchups</h3>
-            <p>Batter vs bowler trends, strike-rate zones, weakness detection.</p>
-          </div>
-          <div class="card">
-            <div class="pill">AI • Coach</div>
-            <h3>AI Cricket Coach</h3>
-            <p>Practice plans: batting timing, bowling lengths, fielding drills.</p>
-          </div>
-          <div class="card">
-            <div class="pill">AI • Multilingual</div>
-            <h3>Auto Translate</h3>
-            <p>Hindi + English first, then more languages for global fans.</p>
-          </div>
+  <!-- AI -->
+  <section id="ai">
+    <div class="wrap">
+      <div class="secHead">
+        <div>
+          <h2>AI Features</h2>
+          <p>We’ll add predictions + player insights after data pipeline is stable.</p>
         </div>
       </div>
-    </section>
 
-    <!-- ABOUT -->
-    <section id="about" class="section">
-      <div class="wrap">
-        <div class="sectionTitle">
-          <h2>About CricYug</h2>
-          <p>New era of cricket products</p>
+      <div class="grid3">
+        <div class="card">
+          <div class="pill">AI v1</div>
+          <h3>Win probability (basic)</h3>
+          <div class="meta">
+            <span><span class="dot gray"></span> Phase: Next</span>
+            <span>📌 Need: match stats</span>
+          </div>
+          <p style="margin:10px 0 0; color:var(--muted); line-height:1.65;">
+            Simple model with live inputs (run rate, wickets, overs).
+          </p>
         </div>
 
         <div class="card">
-          <h3 style="margin-top:0;">Our Mission</h3>
-          <p>
-            Build a fast, clean cricket platform with original content and legal data sources.
-            CricYug focuses on user experience + AI features, not copying others.
-          </p>
+          <div class="pill">Insights</div>
+          <h3>Player form cards</h3>
           <div class="meta">
-            <span>Android app: in progress</span>
-            <span>AI: roadmap</span>
-            <span>Contact: coming soon</span>
+            <span><span class="dot gray"></span> Phase: Later</span>
+            <span>⚙️ Need: player API</span>
           </div>
+          <p style="margin:10px 0 0; color:var(--muted); line-height:1.65;">
+            Last matches, strike rate trends, matchup hints.
+          </p>
         </div>
-      </div>
-    </section>
 
-    <!-- FOOTER -->
-    <footer class="footer">
-      <div class="wrap">
-        <div class="footerGrid">
-          <div>
-            <div style="font-weight:900; color:var(--text);">CricYug</div>
-            <div>© <span id="y"></span> CricYug. All rights reserved.</div>
+        <div class="card">
+          <div class="pill">Predictions</div>
+          <h3>Score range prediction</h3>
+          <div class="meta">
+            <span><span class="dot gray"></span> Phase: Later</span>
+            <span>🧠 Needs training</span>
           </div>
-          <div class="smallLinks">
-            <a href="#live">Live</a>
-            <a href="#news">News</a>
-            <a href="#ai">AI</a>
-            <a href="#about">About</a>
-          </div>
-        </div>
-        <div style="margin-top:10px; font-size:12px; color:var(--muted);">
-          Disclaimer: CricYug is an independent platform and is not affiliated with any other cricket brand.
+          <p style="margin:10px 0 0; color:var(--muted); line-height:1.65;">
+            Estimate defendable / chaseable totals by pitch & overs.
+          </p>
         </div>
       </div>
-    </footer>
-  </main>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap">
+      <div class="secHead">
+        <div>
+          <h2>About CricYug</h2>
+          <p>Independent project. Clean UI + fast pages.</p>
+        </div>
+      </div>
+
+      <div class="card" style="min-height:auto">
+        <h3 style="margin-top:0">Disclaimer</h3>
+        <p style="margin:0; color:var(--muted); line-height:1.75;">
+          CricYug is an independent platform and is not affiliated with any other cricket brand.
+          We will publish original content/analysis (no copy-paste).
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap">
+      <div class="footerGrid">
+        <div>
+          <div style="font-weight:900; font-size:16px;">CricYug</div>
+          <div style="margin-top:6px; color:var(--muted);">
+            © <span id="y"></span> CricYug. All rights reserved.
+          </div>
+          <div style="margin-top:10px; font-size:12px; color:var(--muted);">
+            Disclaimer: CricYug is an independent platform and is not affiliated with any other cricket brand.
+          </div>
+        </div>
+
+        <div class="smallLinks" style="text-align:right">
+          <a href="#live">Live</a>
+          <a href="#news">News</a>
+          <a href="#ai">AI</a>
+          <a href="#about">About</a>
+        </div>
+      </div>
+    </div>
+  </footer>
 
   <script>
-    // Year
+    // Footer year
     document.getElementById("y").textContent = new Date().getFullYear();
 
-    // Live API endpoint (your deployed backend)
-    const LIVE_API = "https://cricyug-api.vercel.app/api/matches";
+    // ====== Live Matches Config ======
+    const API_URL = "https://cricyug-api.vercel.app/api/matches";
+    const grid = document.getElementById("liveGrid");
+    const statusEl = document.getElementById("liveStatus");
+    const qEl = document.getElementById("q");
+    const refreshBtn = document.getElementById("refreshBtn");
 
-    // Decide dot style from status text
-    function statusDotClass(statusText){
-      const s = (statusText || "").toLowerCase();
-      if (s.includes("won") || s.includes("result") || s.includes("abandoned") || s.includes("no result")) return "done";
-      if (s.includes("live") || s.includes("innings") || s.includes("stumps") || s.includes("need") || s.includes("target")) return "live";
-      return "";
-    }
+    let allMatches = [];
 
-    function escapeHtml(str){
-      return String(str ?? "")
+    function escapeHtml(str="") {
+      return String(str)
         .replaceAll("&","&amp;")
         .replaceAll("<","&lt;")
         .replaceAll(">","&gt;")
@@ -478,65 +545,113 @@
         .replaceAll("'","&#039;");
     }
 
-    async function loadLive(manual=false){
-      const box = document.getElementById("liveCards");
-      const stamp = document.getElementById("liveStamp");
+    function pickScoreText(m) {
+      if (!m || !m.score || !Array.isArray(m.score) || m.score.length === 0) return "";
+      const parts = m.score.slice(0, 2).map(s => {
+        const inn = s.inning ? ` (${s.inning})` : "";
+        const rr = (s.r != null && s.w != null && s.o != null) ? `${s.r}/${s.w} (${s.o} ov)` : "";
+        return rr ? rr + inn : "";
+      }).filter(Boolean);
+      return parts.join(" • ");
+    }
 
-      if (manual){
-        box.innerHTML = `<div class="card"><div class="pill"><span class="statusDot"></span> Loading</div><h3>Refreshing…</h3><p>Please wait</p></div>`;
+    function pillFromMatch(m){
+      if (m?.matchStarted && !m?.matchEnded) return { text:"LIVE", dot:"dot" };
+      if (m?.matchEnded) return { text:"RESULT", dot:"dot red" };
+      return { text:"UPCOMING", dot:"dot gray" };
+    }
+
+    function render(list){
+      if (!grid || !statusEl) return;
+
+      if (!list || list.length === 0){
+        grid.innerHTML = "";
+        statusEl.textContent = "No matches found.";
+        return;
       }
 
-      try{
-        const r = await fetch(LIVE_API, { cache: "no-store" });
-        const j = await r.json();
+      // Live first
+      const sorted = [...list].sort((a,b)=>{
+        const aLive = (a?.matchStarted && !a?.matchEnded) ? 2 : (a?.matchStarted ? 1 : 0);
+        const bLive = (b?.matchStarted && !b?.matchEnded) ? 2 : (b?.matchStarted ? 1 : 0);
+        return bLive - aLive;
+      });
 
-        const list = Array.isArray(j.data) ? j.data : [];
-        stamp.textContent = "Last update: " + new Date().toLocaleString();
+      grid.innerHTML = sorted.slice(0, 12).map(m=>{
+        const title = escapeHtml(m.name || "Match");
+        const venue = escapeHtml(m.venue || "");
+        const date = escapeHtml(m.date || "");
+        const statusText = escapeHtml(m.status || "");
+        const scoreText = escapeHtml(pickScoreText(m));
+        const pill = pillFromMatch(m);
 
-        if (!list.length){
-          box.innerHTML = `<div class="card"><div class="pill">No Matches</div><h3>No live matches right now</h3><p>Come back later.</p></div>`;
-          return;
-        }
-
-        box.innerHTML = list.slice(0, 9).map(m => {
-          const status = m.status || "MATCH";
-          const dot = statusDotClass(status);
-          const name = escapeHtml(m.name || "Match");
-          const venue = escapeHtml(m.venue || "");
-          const date = escapeHtml(m.date || "");
-          const type = escapeHtml(m.matchType || "");
-
-          return `
-            <div class="card">
-              <div class="pill"><span class="statusDot ${dot}"></span> ${escapeHtml(status)}</div>
-              <h3>${name}</h3>
-              <p>${venue}</p>
-              <div class="meta">
-                ${type ? `<span>Type: ${type}</span>` : ""}
-                ${date ? `<span>Date: ${date}</span>` : ""}
+        return `
+          <div class="card">
+            <div class="row">
+              <div class="pill">${pill.text}</div>
+              <div style="display:flex; align-items:center; gap:8px; color:var(--muted); font-size:12px;">
+                <span class="${pill.dot}"></span>
+                <span>${date || "—"}</span>
               </div>
             </div>
-          `;
-        }).join("");
 
-      }catch(e){
-        stamp.textContent = "Last update: error";
-        box.innerHTML = `
-          <div class="card">
-            <div class="pill">Error</div>
-            <h3>Live data not loading</h3>
-            <p>Please refresh or try again.</p>
-            <div class="meta"><span>${escapeHtml(e)}</span></div>
+            <h3>${title}</h3>
+
+            <p style="margin:0; color:var(--muted); font-size:13px; line-height:1.65;">
+              ${venue ? venue : "Venue: —"}
+            </p>
+
+            ${scoreText ? `
+              <div class="meta" style="margin-top:10px;">
+                <span>📊 ${scoreText}</span>
+              </div>
+            ` : ""}
+
+            <p style="margin:10px 0 0; color:rgba(234,242,247,.9); font-size:13px; line-height:1.65;">
+              ${statusText || "Status: —"}
+            </p>
           </div>
         `;
+      }).join("");
+
+      statusEl.textContent = "Last updated: " + new Date().toLocaleString();
+    }
+
+    function applySearch(){
+      const q = (qEl?.value || "").trim().toLowerCase();
+      if (!q) return render(allMatches);
+
+      const filtered = allMatches.filter(m=>{
+        const name = (m?.name || "").toLowerCase();
+        const status = (m?.status || "").toLowerCase();
+        const venue = (m?.venue || "").toLowerCase();
+        return name.includes(q) || status.includes(q) || venue.includes(q);
+      });
+
+      render(filtered);
+    }
+
+    async function loadMatches(){
+      if (statusEl) statusEl.textContent = "Loading live matches...";
+      try{
+        const res = await fetch(API_URL, { cache:"no-store" });
+        const json = await res.json();
+        allMatches = Array.isArray(json?.data) ? json.data : [];
+        applySearch();
+      }catch(e){
+        console.log(e);
+        if (grid) grid.innerHTML = "";
+        if (statusEl) statusEl.textContent = "Live data not loading. Please refresh.";
       }
     }
 
-    // First load
-    loadLive(false);
+    // Events
+    qEl?.addEventListener("input", applySearch);
+    refreshBtn?.addEventListener("click", loadMatches);
 
-    // Auto refresh every 30 seconds
-    setInterval(() => loadLive(false), 30000);
+    // Init
+    loadMatches();
+    setInterval(loadMatches, 30000);
   </script>
 </body>
 </html>
