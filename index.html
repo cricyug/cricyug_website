@@ -1,44 +1,53 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>CricYug - Live Cricket</title>
+<title>CricYug</title>
 
 <style>
 
 body{
-background:#0f172a;
-font-family:Arial;
-color:white;
 margin:0;
-padding:20px;
+font-family:Arial;
+background:linear-gradient(180deg,#0b1220,#081024);
+color:white;
 }
 
-.header{
-font-size:28px;
-font-weight:bold;
+header{
+background:#0f172a;
+padding:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+header h1{
 color:#fbbf24;
-margin-bottom:20px;
+}
+
+nav a{
+color:white;
+margin-left:15px;
+text-decoration:none;
+}
+
+.hero{
+padding:30px;
 }
 
 .section{
-margin-top:30px;
+padding:20px;
 }
 
 .card{
 background:#1e293b;
 padding:15px;
-border-radius:12px;
-margin-top:10px;
-}
-
-h2{
-color:#38bdf8;
+border-radius:10px;
+margin:10px 0;
 }
 
 </style>
@@ -47,8 +56,26 @@ color:#38bdf8;
 
 <body>
 
-<div class="header">
-🏏 CricYug Live Center
+<header>
+
+<h1>CricYug</h1>
+
+<nav>
+<a href="#">Live</a>
+<a href="#">Series</a>
+<a href="#">Players</a>
+<a href="#">News</a>
+</nav>
+
+</header>
+
+
+<div class="hero">
+
+<h2>Cricket ka Naya Yug</h2>
+
+<p>Fastest live score + deep cricket data + AI insights</p>
+
 </div>
 
 
@@ -85,40 +112,34 @@ const API="https://cricyug-api.vercel.app/api/matches"
 
 async function loadMatches(){
 
-try{
-
 const res=await fetch(API)
 
 const matches=await res.json()
 
 const live=document.getElementById("liveMatches")
-
 const upcoming=document.getElementById("upcomingMatches")
-
 const results=document.getElementById("resultsMatches")
 
 live.innerHTML=""
-
 upcoming.innerHTML=""
-
 results.innerHTML=""
 
-matches.forEach(match=>{
+matches.forEach(m=>{
 
 const card=
 
 "<div class='card'>"+
-"<h3>"+match.name+"</h3>"+
-"<p>"+match.status+"</p>"+
+"<h3>"+m.name+"</h3>"+
+"<p>"+m.status+"</p>"+
 "</div>"
 
-if(match.matchStarted && !match.matchEnded){
+if(m.matchStarted && !m.matchEnded){
 
 live.innerHTML+=card
 
 }
 
-else if(!match.matchStarted){
+else if(!m.matchStarted){
 
 upcoming.innerHTML+=card
 
@@ -134,14 +155,6 @@ results.innerHTML+=card
 
 }
 
-catch{
-
-document.body.innerHTML+="API error"
-
-}
-
-}
-
 loadMatches()
 
 setInterval(loadMatches,30000)
@@ -150,5 +163,4 @@ setInterval(loadMatches,30000)
 
 
 </body>
-
 </html>
