@@ -532,7 +532,7 @@
     document.getElementById("y").textContent = new Date().getFullYear();
 
     // ====== Live Matches Config ======
-    const API_URL = "https://cricyug-api.vercel.app/api/matches";
+    const API_KEY = process.env.CRICKETDATA_API_KEY || "demo";
     const grid = document.getElementById("liveGrid");
     const statusEl = document.getElementById("liveStatus");
     const qEl = document.getElementById("q");
