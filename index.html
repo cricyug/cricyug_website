@@ -640,10 +640,16 @@
       try{
         const res = await fetch(API_URL, { cache:"no-store" });
         const json = await res.json();
-        allMatches = Array.isArray(json?.data)
-  ? json.data
-  : (Array.isArray(json) ? json : []);
-        applySearch();
+
+if (Array.isArray(json)) {
+  allMatches = json;
+} else if (Array.isArray(json.data)) {
+  allMatches = json.data;
+} else {
+  allMatches = [];
+}
+
+applySearch();
       }catch(e){
         console.log(e);
         if (grid) grid.innerHTML = "";
