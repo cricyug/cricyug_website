@@ -342,7 +342,7 @@
         <div class="sectionTitle">
           <div>
             <h2>Live Match Center</h2>
-            <p>Auto-updates from our backend API every 30 seconds</p>
+            <p>Auto-updates from our backend API every 2 minutes</p>
           </div>
           <input id="searchInput" class="searchBox" type="text" placeholder="Search team / venue..." />
         </div>
@@ -489,8 +489,7 @@
         const title = escapeHtml(match.name || "Match");
         const status = escapeHtml(match.status || "No status");
         const venue = escapeHtml(match.venue || "Unknown venue");
-        const teams = Array.isArray(match.teams) ? match.teams.join(" vs ") : "Teams unavailable";
-
+        const teams = Array.isArray(match.teams) ? escapeHtml(match.teams.join(" vs ")) : "Teams unavailable";
         return `
           <div class="card">
             <div class="pill">${match.matchStarted && !match.matchEnded ? "LIVE" : match.matchEnded ? "RESULT" : "UPCOMING"}</div>
