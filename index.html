@@ -526,19 +526,27 @@
     }
 
     async function loadMatches() {
-      liveStatus.textContent = "Loading live matches...";
-      try {
-        const res = await fetch(API_URL);
-        const json = await res.json();
+  liveStatus.textContent = "Loading live matches...";
 
-        allMatches = Array.isArray(json?.data) ? json.data : [];
-        renderMatches(allMatches);
-      } catch (err) {
-        console.error(err);
-        liveGrid.innerHTML = "";
-        liveStatus.textContent = "Live data not loading. Please refresh.";
-      }
+  try {
+    const res = await fetch(API_URL);
+    const json = await res.json();
+
+    if (json.apiStatus === "failure") {
+      liveGrid.innerHTML = "";
+      liveStatus.textContent = json.reason || "API error";
+      return;
     }
+
+    allMatches = Array.isArray(json?.data) ? json.data : [];
+    renderMatches(allMatches);
+
+  } catch (err) {
+    console.error(err);
+    liveGrid.innerHTML = "";
+    liveStatus.textContent = "Live data not loading. Please refresh.";
+  }
+}
 
     searchInput.addEventListener("input", applySearch);
 
