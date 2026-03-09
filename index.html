@@ -635,27 +635,22 @@
       render(filtered);
     }
 
-    async function loadMatches(){
-      if (statusEl) statusEl.textContent = "Loading live matches...";
-      try{
-        const res = await fetch(API_URL, { cache:"no-store" });
-        const json = await res.json();
+    async function loadMatches() {
+  statusEl.textContent = "Loading live matches...";
 
-if (Array.isArray(json)) {
-  allMatches = json;
-} else if (Array.isArray(json.data)) {
-  allMatches = json.data;
-} else {
-  allMatches = [];
+  try {
+    const res = await fetch(API_URL);
+    const json = await res.json();
+
+    allMatches = json.data || [];
+
+    render(allMatches);
+
+  } catch (e) {
+    console.error(e);
+    statusEl.textContent = "Live data not loading. Please refresh.";
+  }
 }
-
-applySearch();
-      }catch(e){
-        console.log(e);
-        if (grid) grid.innerHTML = "";
-        if (statusEl) statusEl.textContent = "Live data not loading. Please refresh.";
-      }
-    }
 
     // Events
     qEl?.addEventListener("input", applySearch);
