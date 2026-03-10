@@ -5,33 +5,150 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Match Details - CricYug</title>
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0b1f2a;
-      color: white;
-      padding: 24px;
+    :root{
+      --bg1:#0b1f2a;
+      --bg2:#0f3443;
+      --card: rgba(255,255,255,.06);
+      --text:#eaf3f8;
+      --muted: rgba(234,243,248,.72);
+      --brand:#ffcc00;
+      --line: rgba(255,255,255,.12);
+      --radius:18px;
     }
-    .card {
-      max-width: 900px;
-      margin: 0 auto;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 18px;
-      padding: 24px;
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans";
+      color:var(--text);
+      background: linear-gradient(135deg, var(--bg1), var(--bg2));
+      min-height:100vh;
     }
-    .muted {
-      color: rgba(255,255,255,0.7);
+    .wrap{
+      max-width:1000px;
+      margin:0 auto;
+      padding:24px 18px 50px;
+    }
+    .top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      margin-bottom:18px;
+      flex-wrap:wrap;
+    }
+    .backBtn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 14px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      color:var(--text);
+      text-decoration:none;
+      font-weight:700;
+    }
+    .pageTitle{
+      font-size:14px;
+      color:var(--muted);
+    }
+    .card{
+      background: var(--card);
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      padding:22px;
+      margin-bottom:16px;
+    }
+    h1{
+      margin:0 0 10px;
+      font-size:32px;
+      line-height:1.15;
+    }
+    .muted{
+      color:var(--muted);
+    }
+    .pill{
+      display:inline-flex;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      color:var(--muted);
+      font-size:12px;
+      margin-bottom:12px;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap:14px;
+    }
+    .miniCard{
+      background: rgba(255,255,255,.04);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:16px;
+    }
+    .label{
+      color:var(--muted);
+      font-size:12px;
+      margin-bottom:6px;
+    }
+    .value{
+      font-size:16px;
+      font-weight:700;
+      line-height:1.5;
+    }
+    .insight{
+      border-left:4px solid var(--brand);
+      padding-left:14px;
+    }
+    @media (max-width: 700px){
+      .grid{grid-template-columns:1fr}
+      h1{font-size:26px}
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1 id="matchName">Loading...</h1>
-    <p id="matchStatus" class="muted"></p>
-    <p id="matchVenue" class="muted"></p>
-    <p id="matchTeams"></p>
-    <p id="matchState"></p>
+  <div class="wrap">
+    <div class="top">
+      <a class="backBtn" href="/">← Back to Home</a>
+      <div class="pageTitle">CricYug Match Center</div>
+    </div>
+
+    <div class="card">
+      <div id="matchType" class="pill">Loading...</div>
+      <h1 id="matchName">Loading match...</h1>
+      <p id="matchStatus" class="muted"></p>
+    </div>
+
+    <div class="grid">
+      <div class="miniCard">
+        <div class="label">Venue</div>
+        <div id="matchVenue" class="value">Loading...</div>
+      </div>
+
+      <div class="miniCard">
+        <div class="label">Teams</div>
+        <div id="matchTeams" class="value">Loading...</div>
+      </div>
+
+      <div class="miniCard">
+        <div class="label">Match State</div>
+        <div id="matchState" class="value">Loading...</div>
+      </div>
+
+      <div class="miniCard">
+        <div class="label">Match ID</div>
+        <div id="matchId" class="value">Loading...</div>
+      </div>
+    </div>
+
+    <div class="card insight">
+      <div class="label">AI Insight Box</div>
+      <div id="aiInsight" class="value">
+        Loading insight...
+      </div>
+    </div>
   </div>
 
   <script>
@@ -42,11 +159,34 @@
       return url.searchParams.get(name);
     }
 
+    function getMatchType(match) {
+      if (match.matchEnded) return "RESULT";
+      if (match.matchStarted) return "LIVE";
+      return "UPCOMING";
+    }
+
+    function getMatchState(match) {
+      if (match.matchEnded) return "Result declared";
+      if (match.matchStarted) return "Live match in progress";
+      return "Upcoming match";
+    }
+
+    function getAiInsight(match) {
+      if (match.matchEnded) {
+        return `This match has ended. Final update: ${match.status || "Result available"}.`;
+      }
+      if (match.matchStarted) {
+        return `Live match detected. CricYug AI can next show win probability, momentum shifts, and batter vs bowler insights here.`;
+      }
+      return `Upcoming match. CricYug AI can later show predicted key players, venue trend, and pre-match insight here.`;
+    }
+
     async function loadMatch() {
       const id = getQueryParam("id");
 
       if (!id) {
         document.getElementById("matchName").textContent = "Match ID missing";
+        document.getElementById("aiInsight").textContent = "No match ID found in URL.";
         return;
       }
 
@@ -56,25 +196,31 @@
 
         if (json.apiStatus !== "success" || !Array.isArray(json.data)) {
           document.getElementById("matchName").textContent = "Failed to load match";
+          document.getElementById("aiInsight").textContent = "API response was not valid.";
           return;
         }
 
-        const match = json.data.find(m => m.id === id);
+        const match = json.data.find(m => String(m.id) === String(id));
 
         if (!match) {
           document.getElementById("matchName").textContent = "Match not found";
+          document.getElementById("aiInsight").textContent = "This match may no longer be in the live/upcoming list.";
           return;
         }
 
+        document.title = `${match.name || "Match"} - CricYug`;
+        document.getElementById("matchType").textContent = getMatchType(match);
         document.getElementById("matchName").textContent = match.name || "Match";
-        document.getElementById("matchStatus").textContent = match.status || "No status";
-        document.getElementById("matchVenue").textContent = "Venue: " + (match.venue || "Unknown venue");
-        document.getElementById("matchTeams").textContent = "Teams: " + ((match.teams || []).join(" vs "));
-        document.getElementById("matchState").textContent =
-          match.matchEnded ? "Result declared" :
-          match.matchStarted ? "Live match" : "Upcoming match";
+        document.getElementById("matchStatus").textContent = match.status || "No status available";
+        document.getElementById("matchVenue").textContent = match.venue || "Unknown venue";
+        document.getElementById("matchTeams").textContent = Array.isArray(match.teams) ? match.teams.join(" vs ") : "Teams unavailable";
+        document.getElementById("matchState").textContent = getMatchState(match);
+        document.getElementById("matchId").textContent = match.id || "N/A";
+        document.getElementById("aiInsight").textContent = getAiInsight(match);
+
       } catch (err) {
         document.getElementById("matchName").textContent = "Error loading match";
+        document.getElementById("aiInsight").textContent = "Could not load match details right now.";
       }
     }
 
