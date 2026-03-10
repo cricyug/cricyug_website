@@ -236,7 +236,7 @@
     document.getElementById("matchState").textContent = getMatchState(match);
     document.getElementById("matchId").textContent = match.id || "N/A";
     document.getElementById("aiInsight").textContent = getAiInsight(match);
-
+    renderScore(match);
   } catch (err) {
     document.getElementById("matchName").textContent = "Error loading match";
     document.getElementById("aiInsight").textContent = "Could not load match details right now.";
