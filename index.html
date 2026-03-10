@@ -491,7 +491,7 @@
         const venue = escapeHtml(match.venue || "Unknown venue");
         const teams = Array.isArray(match.teams) ? escapeHtml(match.teams.join(" vs ")) : "Teams unavailable";
         return `
-          <div class="card">
+          <a class="card" href="match.html?id=${encodeURIComponent(match.id)}">
             <div class="pill">${match.matchStarted && !match.matchEnded ? "LIVE" : match.matchEnded ? "RESULT" : "UPCOMING"}</div>
             <h3>${title}</h3>
             <p>${teams}</p>
