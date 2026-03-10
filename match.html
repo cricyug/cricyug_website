@@ -121,7 +121,10 @@
       <p id="matchStatus" class="muted"></p>
     </div>
 
-    <div class="grid">
+    <div class="card">
+  <div class="label">Live Score</div>
+  <div id="scoreWrap" class="value">Loading score...</div>
+</div>
       <div class="miniCard">
         <div class="label">Venue</div>
         <div id="matchVenue" class="value">Loading...</div>
@@ -171,7 +174,29 @@
       return "Upcoming match";
     }
 
-    function getAiInsight(match) {
+    function renderScore(match) {
+  const scoreWrap = document.getElementById("scoreWrap");
+
+  if (!Array.isArray(match.score) || !match.score.length) {
+    scoreWrap.textContent = "Score not available yet.";
+    return;
+  }
+
+  scoreWrap.innerHTML = match.score.map(item => {
+    const runs = item.r ?? "-";
+    const wickets = item.w ?? "-";
+    const overs = item.o ?? "-";
+    const inning = item.inning || "Inning";
+
+    return `
+      <div style="margin-bottom:12px; padding:12px; border:1px solid rgba(255,255,255,.12); border-radius:12px; background:rgba(255,255,255,.04);">
+        <div style="font-size:14px; color:rgba(234,243,248,.72); margin-bottom:6px;">${inning}</div>
+        <div style="font-size:24px; font-weight:800;">${runs}/${wickets}</div>
+        <div style="font-size:14px; color:rgba(234,243,248,.72);">Overs: ${overs}</div>
+      </div>
+    `;
+  }).join("");
+}
       if (match.matchEnded) {
         return `This match has ended. Final update: ${match.status || "Result available"}.`;
       }
