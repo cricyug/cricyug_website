@@ -183,6 +183,7 @@
       gap:12px;
     }
     .card{
+      display:block;
       background: var(--card2);
       border:1px solid var(--line);
       border-radius: var(--radius);
@@ -490,8 +491,9 @@
         const status = escapeHtml(match.status || "No status");
         const venue = escapeHtml(match.venue || "Unknown venue");
         const teams = Array.isArray(match.teams) ? escapeHtml(match.teams.join(" vs ")) : "Teams unavailable";
+
         return `
-          <a class="card" href="match.html?id=${encodeURIComponent(match.id)}">
+          <a class="card" href="match.html?id=${encodeURIComponent(match.id)}" style="display:block">
             <div class="pill">${match.matchStarted && !match.matchEnded ? "LIVE" : match.matchEnded ? "RESULT" : "UPCOMING"}</div>
             <h3>${title}</h3>
             <p>${teams}</p>
@@ -500,7 +502,7 @@
             </div>
             <div class="divider"></div>
             <p>${status}</p>
-          </div>
+          </a>
         `;
       }).join("");
 
@@ -526,27 +528,27 @@
     }
 
     async function loadMatches() {
-  liveStatus.textContent = "Loading live matches...";
+      liveStatus.textContent = "Loading live matches...";
 
-  try {
-    const res = await fetch(API_URL);
-    const json = await res.json();
+      try {
+        const res = await fetch(API_URL);
+        const json = await res.json();
 
-    if (json.apiStatus === "failure") {
-      liveGrid.innerHTML = "";
-      liveStatus.textContent = json.reason || "API error";
-      return;
+        if (json.apiStatus === "failure") {
+          liveGrid.innerHTML = "";
+          liveStatus.textContent = json.reason || "API error";
+          return;
+        }
+
+        allMatches = Array.isArray(json?.data) ? json.data : [];
+        renderMatches(allMatches);
+
+      } catch (err) {
+        console.error(err);
+        liveGrid.innerHTML = "";
+        liveStatus.textContent = "Live data not loading. Please refresh.";
+      }
     }
-
-    allMatches = Array.isArray(json?.data) ? json.data : [];
-    renderMatches(allMatches);
-
-  } catch (err) {
-    console.error(err);
-    liveGrid.innerHTML = "";
-    liveStatus.textContent = "Live data not loading. Please refresh.";
-  }
-}
 
     searchInput.addEventListener("input", applySearch);
 
