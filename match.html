@@ -111,7 +111,7 @@
 <body>
   <div class="wrap">
     <div class="top">
-      <a class="backBtn" href="/">← Back to Home</a>
+      <a class="backBtn" href="index.html">← Back to Home</a>
       <div class="pageTitle">CricYug Match Center</div>
     </div>
 
@@ -122,9 +122,11 @@
     </div>
 
     <div class="card">
-  <div class="label">Live Score</div>
-  <div id="scoreWrap" class="value">Loading score...</div>
-</div>
+      <div class="label">Live Score</div>
+      <div id="scoreWrap" class="value">Loading score...</div>
+    </div>
+
+    <div class="grid">
       <div class="miniCard">
         <div class="label">Venue</div>
         <div id="matchVenue" class="value">Loading...</div>
@@ -148,9 +150,7 @@
 
     <div class="card insight">
       <div class="label">AI Insight Box</div>
-      <div id="aiInsight" class="value">
-        Loading insight...
-      </div>
+      <div id="aiInsight" class="value">Loading insight...</div>
     </div>
   </div>
 
@@ -174,29 +174,7 @@
       return "Upcoming match";
     }
 
-    function renderScore(match) {
-  const scoreWrap = document.getElementById("scoreWrap");
-
-  if (!Array.isArray(match.score) || !match.score.length) {
-    scoreWrap.textContent = "Score not available yet.";
-    return;
-  }
-
-  scoreWrap.innerHTML = match.score.map(item => {
-    const runs = item.r ?? "-";
-    const wickets = item.w ?? "-";
-    const overs = item.o ?? "-";
-    const inning = item.inning || "Inning";
-
-    return `
-      <div style="margin-bottom:12px; padding:12px; border:1px solid rgba(255,255,255,.12); border-radius:12px; background:rgba(255,255,255,.04);">
-        <div style="font-size:14px; color:rgba(234,243,248,.72); margin-bottom:6px;">${inning}</div>
-        <div style="font-size:24px; font-weight:800;">${runs}/${wickets}</div>
-        <div style="font-size:14px; color:rgba(234,243,248,.72);">Overs: ${overs}</div>
-      </div>
-    `;
-  }).join("");
-}
+    function getAiInsight(match) {
       if (match.matchEnded) {
         return `This match has ended. Final update: ${match.status || "Result available"}.`;
       }
@@ -206,42 +184,67 @@
       return `Upcoming match. CricYug AI can later show predicted key players, venue trend, and pre-match insight here.`;
     }
 
-    async function loadMatch() {
-  const id = getQueryParam("id");
+    function renderScore(match) {
+      const scoreWrap = document.getElementById("scoreWrap");
 
-  if (!id) {
-    document.getElementById("matchName").textContent = "Match ID missing";
-    document.getElementById("aiInsight").textContent = "No match ID found in URL.";
-    return;
-  }
+      if (!Array.isArray(match.score) || !match.score.length) {
+        scoreWrap.textContent = "Score not available yet.";
+        return;
+      }
 
-  try {
-    const res = await fetch(`${API_BASE}?id=${encodeURIComponent(id)}`);
-    const json = await res.json();
+      scoreWrap.innerHTML = match.score.map(item => {
+        const runs = item.r ?? "-";
+        const wickets = item.w ?? "-";
+        const overs = item.o ?? "-";
+        const inning = item.inning || "Inning";
 
-    if (json.apiStatus !== "success" || !json.data) {
-      document.getElementById("matchName").textContent = "Failed to load match";
-      document.getElementById("aiInsight").textContent = json.reason || "API response was not valid.";
-      return;
+        return `
+          <div style="margin-bottom:12px; padding:12px; border:1px solid rgba(255,255,255,.12); border-radius:12px; background:rgba(255,255,255,.04);">
+            <div style="font-size:14px; color:rgba(234,243,248,.72); margin-bottom:6px;">${inning}</div>
+            <div style="font-size:24px; font-weight:800;">${runs}/${wickets}</div>
+            <div style="font-size:14px; color:rgba(234,243,248,.72);">Overs: ${overs}</div>
+          </div>
+        `;
+      }).join("");
     }
 
-    const match = json.data;
+    async function loadMatch() {
+      const id = getQueryParam("id");
 
-    document.title = `${match.name || "Match"} - CricYug`;
-    document.getElementById("matchType").textContent = getMatchType(match);
-    document.getElementById("matchName").textContent = match.name || "Match";
-    document.getElementById("matchStatus").textContent = match.status || "No status available";
-    document.getElementById("matchVenue").textContent = match.venue || "Unknown venue";
-    document.getElementById("matchTeams").textContent = Array.isArray(match.teams) ? match.teams.join(" vs ") : "Teams unavailable";
-    document.getElementById("matchState").textContent = getMatchState(match);
-    document.getElementById("matchId").textContent = match.id || "N/A";
-    document.getElementById("aiInsight").textContent = getAiInsight(match);
-    renderScore(match);
-  } catch (err) {
-    document.getElementById("matchName").textContent = "Error loading match";
-    document.getElementById("aiInsight").textContent = "Could not load match details right now.";
-  }
-}
+      if (!id) {
+        document.getElementById("matchName").textContent = "Match ID missing";
+        document.getElementById("aiInsight").textContent = "No match ID found in URL.";
+        return;
+      }
+
+      try {
+        const res = await fetch(`${API_BASE}?id=${encodeURIComponent(id)}`);
+        const json = await res.json();
+
+        if (json.apiStatus !== "success" || !json.data) {
+          document.getElementById("matchName").textContent = "Failed to load match";
+          document.getElementById("aiInsight").textContent = json.reason || "API response was not valid.";
+          return;
+        }
+
+        const match = json.data;
+
+        document.title = `${match.name || "Match"} - CricYug`;
+        document.getElementById("matchType").textContent = getMatchType(match);
+        document.getElementById("matchName").textContent = match.name || "Match";
+        document.getElementById("matchStatus").textContent = match.status || "No status available";
+        document.getElementById("matchVenue").textContent = match.venue || "Unknown venue";
+        document.getElementById("matchTeams").textContent = Array.isArray(match.teams) ? match.teams.join(" vs ") : "Teams unavailable";
+        document.getElementById("matchState").textContent = getMatchState(match);
+        document.getElementById("matchId").textContent = match.id || "N/A";
+        document.getElementById("aiInsight").textContent = getAiInsight(match);
+        renderScore(match);
+
+      } catch (err) {
+        document.getElementById("matchName").textContent = "Error loading match";
+        document.getElementById("aiInsight").textContent = "Could not load match details right now.";
+      }
+    }
 
     loadMatch();
   </script>
