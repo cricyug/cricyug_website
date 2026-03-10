@@ -152,7 +152,7 @@
   </div>
 
   <script>
-    const API_URL = "https://cricyug-api.vercel.app/api/matches";
+    const API_BASE = "https://cricyug-api.vercel.app/api/match";
 
     function getQueryParam(name) {
       const url = new URL(window.location.href);
@@ -182,47 +182,41 @@
     }
 
     async function loadMatch() {
-      const id = getQueryParam("id");
+  const id = getQueryParam("id");
 
-      if (!id) {
-        document.getElementById("matchName").textContent = "Match ID missing";
-        document.getElementById("aiInsight").textContent = "No match ID found in URL.";
-        return;
-      }
+  if (!id) {
+    document.getElementById("matchName").textContent = "Match ID missing";
+    document.getElementById("aiInsight").textContent = "No match ID found in URL.";
+    return;
+  }
 
-      try {
-        const res = await fetch(API_URL);
-        const json = await res.json();
+  try {
+    const res = await fetch(`${API_BASE}?id=${encodeURIComponent(id)}`);
+    const json = await res.json();
 
-        if (json.apiStatus !== "success" || !Array.isArray(json.data)) {
-          document.getElementById("matchName").textContent = "Failed to load match";
-          document.getElementById("aiInsight").textContent = "API response was not valid.";
-          return;
-        }
-
-        const match = json.data.find(m => String(m.id) === String(id));
-
-        if (!match) {
-          document.getElementById("matchName").textContent = "Match not found";
-          document.getElementById("aiInsight").textContent = "This match may no longer be in the live/upcoming list.";
-          return;
-        }
-
-        document.title = `${match.name || "Match"} - CricYug`;
-        document.getElementById("matchType").textContent = getMatchType(match);
-        document.getElementById("matchName").textContent = match.name || "Match";
-        document.getElementById("matchStatus").textContent = match.status || "No status available";
-        document.getElementById("matchVenue").textContent = match.venue || "Unknown venue";
-        document.getElementById("matchTeams").textContent = Array.isArray(match.teams) ? match.teams.join(" vs ") : "Teams unavailable";
-        document.getElementById("matchState").textContent = getMatchState(match);
-        document.getElementById("matchId").textContent = match.id || "N/A";
-        document.getElementById("aiInsight").textContent = getAiInsight(match);
-
-      } catch (err) {
-        document.getElementById("matchName").textContent = "Error loading match";
-        document.getElementById("aiInsight").textContent = "Could not load match details right now.";
-      }
+    if (json.apiStatus !== "success" || !json.data) {
+      document.getElementById("matchName").textContent = "Failed to load match";
+      document.getElementById("aiInsight").textContent = json.reason || "API response was not valid.";
+      return;
     }
+
+    const match = json.data;
+
+    document.title = `${match.name || "Match"} - CricYug`;
+    document.getElementById("matchType").textContent = getMatchType(match);
+    document.getElementById("matchName").textContent = match.name || "Match";
+    document.getElementById("matchStatus").textContent = match.status || "No status available";
+    document.getElementById("matchVenue").textContent = match.venue || "Unknown venue";
+    document.getElementById("matchTeams").textContent = Array.isArray(match.teams) ? match.teams.join(" vs ") : "Teams unavailable";
+    document.getElementById("matchState").textContent = getMatchState(match);
+    document.getElementById("matchId").textContent = match.id || "N/A";
+    document.getElementById("aiInsight").textContent = getAiInsight(match);
+
+  } catch (err) {
+    document.getElementById("matchName").textContent = "Error loading match";
+    document.getElementById("aiInsight").textContent = "Could not load match details right now.";
+  }
+}
 
     loadMatch();
   </script>
