@@ -1,34 +1,122 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>CricYug Match Center</title>
-<style>
-body{
-font-family:Arial;
-background:#071a23;
-color:white;
-padding:20px;
-}
-
-.match{
-background:#0b2330;
-padding:15px;
-margin:10px 0;
-border-radius:10px;
-}
-
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CricYug — Match Details</title>
+  <style>
+    body{
+      margin:0;
+      font-family:system-ui;
+      background:#0b1f2a;
+      color:#eaf3f8;
+      padding:20px;
+    }
+    .wrap{
+      max-width:900px;
+      margin:auto;
+    }
+    .card{
+      background:#152c38;
+      border:1px solid rgba(255,255,255,.12);
+      padding:20px;
+      border-radius:16px;
+      margin-top:20px;
+    }
+    .muted{
+      color:rgba(234,243,248,.72);
+    }
+    .back{
+      display:inline-block;
+      margin-bottom:18px;
+      color:#ffcc00;
+      text-decoration:none;
+      font-weight:700;
+    }
+    .pill{
+      display:inline-block;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.05);
+      color:rgba(234,243,248,.8);
+      font-size:12px;
+      margin-bottom:12px;
+    }
+  </style>
 </head>
-
 <body>
+  <div class="wrap">
+    <a class="back" href="index.html#live">← Back to Live Matches</a>
 
-<h1>🏏 Match Center</h1>
+    <h1>Match Details</h1>
 
-<div class="match">
-<h3>India vs Australia</h3>
-<p>Score: 180/4</p>
-<p>Status: Live</p>
-</div>
+    <div id="match">Loading match...</div>
+  </div>
 
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+
+    async function loadMatch() {
+      try {
+        const res = await fetch("https://cricyug-api.vercel.app/api/matches");
+        const json = await res.json();
+
+        if (json.apiStatus === "failure") {
+          document.getElementById("match").innerHTML = `
+            <div class="card">
+              <div class="pill">API Error</div>
+              <p>${json.reason || "Unable to load match."}</p>
+            </div>
+          `;
+          return;
+        }
+
+        const list = Array.isArray(json?.data) ? json.data : [];
+        const match = list.find(m => String(m.id) === String(id));
+
+        if (!match) {
+          document.getElementById("match").innerHTML = `
+            <div class="card">
+              <div class="pill">Not Found</div>
+              <p>Match not found.</p>
+            </div>
+          `;
+          return;
+        }
+
+        const teams = Array.isArray(match.teams) ? match.teams.join(" vs ") : "Teams unavailable";
+        const venue = match.venue || "Unknown venue";
+        const status = match.status || "No status available";
+        const type = match.matchStarted && !match.matchEnded
+          ? "LIVE"
+          : match.matchEnded
+          ? "RESULT"
+          : "UPCOMING";
+
+        document.getElementById("match").innerHTML = `
+          <div class="card">
+            <div class="pill">${type}</div>
+            <h2>${match.name || "Match"}</h2>
+            <p class="muted">${teams}</p>
+            <p><strong>Venue:</strong> ${venue}</p>
+            <p><strong>Status:</strong> ${status}</p>
+            <p><strong>Match ID:</strong> ${match.id || "N/A"}</p>
+          </div>
+        `;
+      } catch (err) {
+        console.error(err);
+        document.getElementById("match").innerHTML = `
+          <div class="card">
+            <div class="pill">Error</div>
+            <p>Failed to load match details.</p>
+          </div>
+        `;
+      }
+    }
+
+    loadMatch();
+  </script>
 </body>
 </html>
