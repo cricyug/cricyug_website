@@ -1,51 +1,99 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>CricYug Players</title>
-<style>
-body{
-font-family:Arial;
-background:#071a23;
-color:white;
-margin:0;
-padding:20px;
-}
-
-h1{
-color:#f7b500;
-}
-
-.player{
-background:#0b2330;
-padding:15px;
-margin:10px 0;
-border-radius:10px;
-}
-
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Players - CricYug</title>
+  <style>
+    body{
+      margin:0;
+      font-family:Arial,sans-serif;
+      background:#0b1f2a;
+      color:#fff;
+      padding:30px;
+    }
+    .top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:24px;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+    .back{
+      color:#fff;
+      text-decoration:none;
+      border:1px solid rgba(255,255,255,.2);
+      padding:10px 14px;
+      border-radius:10px;
+      display:inline-block;
+    }
+    .title{
+      font-size:32px;
+      font-weight:700;
+      margin:0;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:16px;
+    }
+    .card{
+      background:#122b3a;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:16px;
+      padding:18px;
+    }
+    .name{
+      font-size:20px;
+      font-weight:700;
+      margin-bottom:8px;
+    }
+    .meta{
+      color:rgba(255,255,255,.75);
+      font-size:14px;
+      line-height:1.6;
+    }
+  </style>
 </head>
-
 <body>
 
-<h1>🏏 CricYug Players</h1>
+  <div class="top">
+    <a class="back" href="index.html">← Back to Home</a>
+    <h1 class="title">Top Players</h1>
+  </div>
 
-<div class="player">
-<h3>Virat Kohli</h3>
-<p>Country: India</p>
-<p>Role: Batsman</p>
-</div>
+  <div class="grid">
+    <div class="card">
+      <div class="name">Virat Kohli</div>
+      <div class="meta">Team: India<br>Role: Batter</div>
+    </div>
 
-<div class="player">
-<h3>Joe Root</h3>
-<p>Country: England</p>
-<p>Role: Batsman</p>
-</div>
+    <div class="card">
+      <div class="name">Babar Azam</div>
+      <div class="meta">Team: Pakistan<br>Role: Batter</div>
+    </div>
 
-<div class="player">
-<h3>Babar Azam</h3>
-<p>Country: Pakistan</p>
-<p>Role: Batsman</p>
-</div>
+    <div class="card">
+      <div class="name">Steve Smith</div>
+      <div class="meta">Team: Australia<br>Role: Batter</div>
+    </div>
+
+    <div class="card">
+      <div class="name">Jasprit Bumrah</div>
+      <div class="meta">Team: India<br>Role: Bowler</div>
+    </div>
+
+    <div class="card">
+      <div class="name">Joe Root</div>
+      <div class="meta">Team: England<br>Role: Batter</div>
+    </div>
+
+    <div class="card">
+      <div class="name">Kane Williamson</div>
+      <div class="meta">Team: New Zealand<br>Role: Batter</div>
+    </div>
+  </div>
 
 </body>
 </html>
