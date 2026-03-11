@@ -1,23 +1,56 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Scorecard</title>
-<link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scorecard - CricYug</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="favicon.svg" />
 </head>
-
 <body>
 
-<div class="wrap">
+<header class="topbar">
+  <div class="wrap nav">
+    <div class="brand">CricYug</div>
+    <nav class="navlinks">
+      <a href="index.html">Home</a>
+      <a href="news.html">News</a>
+      <a href="players.html">Players</a>
+      <a href="teams.html">Teams</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
 
-<h1>Scorecard</h1>
+<section class="section">
+  <div class="wrap">
+    <a class="btn" href="index.html">← Back to Home</a>
+    <div class="card" style="margin-top:18px">
+      <div class="tag">SCORECARD</div>
+      <h1>Match Scorecard</h1>
+      <div id="scorecard" class="muted">Loading scorecard...</div>
+    </div>
+  </div>
+</section>
 
-<div id="scorecard">Loading...</div>
-
-</div>
+<footer class="footer">
+  <div class="wrap">
+    <div style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap">
+      <div><strong style="color:white">CricYug</strong><br>AI Powered Cricket Platform</div>
+      <div class="footerLinks">
+        <a href="index.html">Home</a>
+        <a href="news.html">News</a>
+        <a href="players.html">Players</a>
+        <a href="teams.html">Teams</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
 
 <script src="js/scorecard.js"></script>
-
 </body>
 </html>
