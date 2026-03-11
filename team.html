@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Team - CricYug</title>
+  <meta name="description" content="Cricket team profile on CricYug." />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0b1f2a" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="stylesheet" href="css/style.css" />
+
+  <style>
+    .top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      margin-bottom:18px;
+      flex-wrap:wrap;
+    }
+
+    .backBtn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 14px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      color:var(--text);
+      text-decoration:none;
+      font-weight:700;
+    }
+
+    .pageTitle{
+      font-size:14px;
+      color:var(--muted);
+    }
+
+    .profile{
+      display:grid;
+      grid-template-columns: 120px 1fr;
+      gap:18px;
+      align-items:center;
+    }
+
+    .avatar{
+      width:120px;
+      height:120px;
+      border-radius:20px;
+      object-fit:cover;
+      background:rgba(255,255,255,.08);
+      border:1px solid var(--line);
+    }
+
+    .label{
+      color:var(--muted);
+      font-size:12px;
+      margin-bottom:6px;
+    }
+
+    .value{
+      font-size:16px;
+      font-weight:700;
+      line-height:1.5;
+      white-space:pre-line;
+    }
+
+    .miniGrid{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap:14px;
+    }
+
+    .miniCard{
+      background: rgba(255,255,255,.04);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:16px;
+    }
+
+    .ghost{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:10px 14px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      color:var(--text);
+      font-weight:700;
+    }
+
+    .ghost:hover{
+      background: rgba(255,255,255,.08);
+    }
+
+    @media (max-width: 700px){
+      .profile{ grid-template-columns:1fr; }
+      .miniGrid{ grid-template-columns:1fr; }
+      .avatar{ width:100px; height:100px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap" style="padding-top:24px; padding-bottom:50px;">
+    <div class="top">
+      <a class="backBtn" href="teams.html">← Back to Teams</a>
+      <div class="pageTitle">CricYug Team Center</div>
+    </div>
+
+    <div class="card">
+      <div class="profile">
+        <img id="teamImage" class="avatar" alt="Team image" />
+        <div>
+          <div class="pill">TEAM PROFILE</div>
+          <h1 id="teamName" style="margin:8px 0 10px;">Loading team...</h1>
+          <p id="teamTagline" style="margin:0; color:var(--muted);">Loading team info...</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="miniGrid">
+      <div class="miniCard">
+        <div class="label">Country</div>
+        <div id="teamCountry" class="value">Loading...</div>
+      </div>
+
+      <div class="miniCard">
+        <div class="label">Format</div>
+        <div id="teamFormat" class="value">Loading...</div>
+      </div>
+
+      <div class="miniCard">
+        <div class="label">Status</div>
+        <div id="teamStatus" class="value">Loading...</div>
+      </div>
+
+      <div class="miniCard">
+        <div class="label">Captain</div>
+        <div id="teamCaptain" class="value">Loading...</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="label">AI Team Insight</div>
+      <div id="teamInsight" class="value">Loading team insight...</div>
+    </div>
+
+    <div class="card">
+      <div class="label">Quick Actions</div>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <a class="ghost" href="index.html">Home</a>
+        <a class="ghost" href="news.html">News</a>
+        <a class="ghost" href="players.html">Players</a>
+        <a class="ghost" href="teams.html">Teams</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function getQueryParam(name) {
+      const url = new URL(window.location.href);
+      return url.searchParams.get(name);
+    }
+
+    function getFallbackTeam(id) {
+      const teams = {
+        "india": {
+          name: "India",
+          tagline: "A strong international cricket side with depth across formats.",
+          country: "India",
+          format: "International",
+          status: "Active",
+          captain: "Rohit Sharma",
+          image: "",
+          insight: "CricYug AI rates India as a balanced side with strong batting depth and high-impact bowling options."
+        },
+        "australia": {
+          name: "Australia",
+          tagline: "A traditionally dominant cricket nation across formats.",
+          country: "Australia",
+          format: "International",
+          status: "Active",
+          captain: "Pat Cummins",
+          image: "",
+          insight: "CricYug AI marks Australia as a high-pressure team with strong match control and experience in major tournaments."
+        },
+        "england": {
+          name: "England",
+          tagline: "An aggressive modern side with strong white-ball identity.",
+          country: "England",
+          format: "International",
+          status: "Active",
+          captain: "Jos Buttler",
+          image: "",
+          insight: "CricYug AI sees England as an attacking team with high scoring intent and flexible tactical depth."
+        },
+        "pakistan": {
+          name: "Pakistan",
+          tagline: "A talented side known for pace, flair and unpredictability.",
+          country: "Pakistan",
+          format: "International",
+          status: "Active",
+          captain: "Babar Azam",
+          image: "",
+          insight: "CricYug AI highlights Pakistan as a momentum-driven side with dangerous bowling and top-order quality."
+        },
+        "south-africa": {
+          name: "South Africa",
+          tagline: "A competitive team with pace strength and athletic fielding.",
+          country: "South Africa",
+          format: "International",
+          status: "Active",
+          captain: "Temba Bavuma",
+          image: "",
+          insight: "CricYug AI identifies South Africa as a strong seam-focused side with match-winning bursts."
+        },
+        "new-zealand": {
+          name: "New Zealand",
+          tagline: "A disciplined and smart team with strong collective cricket.",
+          country: "New Zealand",
+          format: "International",
+          status: "Active",
+          captain: "Kane Williamson",
+          image: "",
+          insight: "CricYug AI rates New Zealand as a highly efficient and tactically stable side under pressure."
+        }
+      };
+
+      return teams[id] || {
+        name: "Team Not Found",
+        tagline: "Unknown team profile.",
+        country: "Unknown",
+        format: "N/A",
+        status: "N/A",
+        captain: "N/A",
+        image: "",
+        insight: "CricYug AI could not find this team in the current team set."
+      };
+    }
+
+    function loadTeam() {
+      const id = getQueryParam("id") || "india";
+      const team = getFallbackTeam(id);
+
+      document.title = `${team.name} - CricYug`;
+      document.getElementById("teamName").textContent = team.name;
+      document.getElementById("teamTagline").textContent = team.tagline;
+      document.getElementById("teamCountry").textContent = team.country;
+      document.getElementById("teamFormat").textContent = team.format;
+      document.getElementById("teamStatus").textContent = team.status;
+      document.getElementById("teamCaptain").textContent = team.captain;
+      document.getElementById("teamInsight").textContent = team.insight;
+
+      const img = document.getElementById("teamImage");
+      if (team.image) {
+        img.src = team.image;
+      } else {
+        img.style.display = "none";
+      }
+    }
+
+    loadTeam();
+  </script>
+</body>
+</html>
