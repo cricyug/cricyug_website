@@ -2,7 +2,7 @@
 const params=new URLSearchParams(location.search)
 const id=params.get("id")
 
-const API="https://cricyug-api.vercel.app/api/match?id="
+const API="https://cricyug-api.vercel.app/api/scorecard?id="
 
 async function loadScore(){
 

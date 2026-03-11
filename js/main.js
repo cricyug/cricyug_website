@@ -14,17 +14,13 @@ const matches=json.data||[]
 
 grid.innerHTML=matches.map(m=>`
 <a class="card" href="match.html?id=${m.id}">
-
 <h3>${m.name}</h3>
 <p>${m.status}</p>
-
 </a>
 `).join("")
 
 }catch{
-
 grid.innerHTML="Failed to load matches"
-
 }
 
 }
