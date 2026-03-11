@@ -4,14 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Players - CricYug</title>
+  <meta name="description" content="Explore cricket players, roles and future player profiles on CricYug." />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0b1f2a" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="stylesheet" href="css/style.css" />
+
   <style>
-    body{
-      margin:0;
-      font-family:Arial,sans-serif;
-      background:#0b1f2a;
-      color:#fff;
-      padding:30px;
-    }
     .top{
       display:flex;
       justify-content:space-between;
@@ -20,6 +19,7 @@
       flex-wrap:wrap;
       gap:12px;
     }
+
     .back{
       color:#fff;
       text-decoration:none;
@@ -28,28 +28,20 @@
       border-radius:10px;
       display:inline-block;
     }
+
     .title{
       font-size:32px;
       font-weight:700;
       margin:0;
     }
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-      gap:16px;
-    }
-    .card{
-      background:#122b3a;
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:16px;
-      padding:18px;
-    }
+
     .name{
       font-size:20px;
       font-weight:700;
       margin-bottom:8px;
     }
-    .meta{
+
+    .metaText{
       color:rgba(255,255,255,.75);
       font-size:14px;
       line-height:1.6;
@@ -57,43 +49,88 @@
   </style>
 </head>
 <body>
+  <header class="navbar" style="margin-bottom:30px;">
+    <div class="navbarInner">
+      <a href="index.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;">
+        <div class="logo">CY</div>
+        <div>
+          <div style="font-size:15px;line-height:1;">CricYug</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.7);line-height:1.2;">AI Powered Cricket</div>
+        </div>
+      </a>
 
-  <div class="top">
-    <a class="back" href="index.html">← Back to Home</a>
-    <h1 class="title">Top Players</h1>
+      <nav class="navlinks">
+        <a href="index.html">Home</a>
+        <a href="news.html">News</a>
+        <a href="players.html">Players</a>
+        <a href="teams.html">Teams</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="top">
+      <a class="back" href="index.html">← Back to Home</a>
+      <h1 class="title">Top Players</h1>
+    </div>
+
+    <div class="grid3">
+      <div class="card">
+        <div class="name">Virat Kohli</div>
+        <div class="metaText">Team: India<br>Role: Batter</div>
+      </div>
+
+      <div class="card">
+        <div class="name">Babar Azam</div>
+        <div class="metaText">Team: Pakistan<br>Role: Batter</div>
+      </div>
+
+      <div class="card">
+        <div class="name">Steve Smith</div>
+        <div class="metaText">Team: Australia<br>Role: Batter</div>
+      </div>
+
+      <div class="card">
+        <div class="name">Jasprit Bumrah</div>
+        <div class="metaText">Team: India<br>Role: Bowler</div>
+      </div>
+
+      <div class="card">
+        <div class="name">Joe Root</div>
+        <div class="metaText">Team: England<br>Role: Batter</div>
+      </div>
+
+      <div class="card">
+        <div class="name">Kane Williamson</div>
+        <div class="metaText">Team: New Zealand<br>Role: Batter</div>
+      </div>
+    </div>
+
+    <footer style="margin-top:40px;padding-top:18px;border-top:1px solid rgba(255,255,255,.12);color:rgba(234,243,248,.72);font-size:13px;">
+      <div style="max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;">
+        <div>
+          <div style="font-weight:800;color:#eaf3f8;">CricYug</div>
+          <div>© <span class="footerYear"></span> CricYug. All rights reserved.</div>
+        </div>
+
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <a href="index.html" style="color:rgba(234,243,248,.72);text-decoration:none;">Home</a>
+          <a href="news.html" style="color:rgba(234,243,248,.72);text-decoration:none;">News</a>
+          <a href="players.html" style="color:rgba(234,243,248,.72);text-decoration:none;">Players</a>
+          <a href="teams.html" style="color:rgba(234,243,248,.72);text-decoration:none;">Teams</a>
+        </div>
+      </div>
+
+      <div style="margin-top:10px;font-size:12px;color:rgba(234,243,248,.72);">
+        Disclaimer: CricYug is an independent platform and is not affiliated with Cricbuzz, BCCI, ICC, or any cricket organization.
+      </div>
+    </footer>
   </div>
 
-  <div class="grid">
-    <div class="card">
-      <div class="name">Virat Kohli</div>
-      <div class="meta">Team: India<br>Role: Batter</div>
-    </div>
-
-    <div class="card">
-      <div class="name">Babar Azam</div>
-      <div class="meta">Team: Pakistan<br>Role: Batter</div>
-    </div>
-
-    <div class="card">
-      <div class="name">Steve Smith</div>
-      <div class="meta">Team: Australia<br>Role: Batter</div>
-    </div>
-
-    <div class="card">
-      <div class="name">Jasprit Bumrah</div>
-      <div class="meta">Team: India<br>Role: Bowler</div>
-    </div>
-
-    <div class="card">
-      <div class="name">Joe Root</div>
-      <div class="meta">Team: England<br>Role: Batter</div>
-    </div>
-
-    <div class="card">
-      <div class="name">Kane Williamson</div>
-      <div class="meta">Team: New Zealand<br>Role: Batter</div>
-    </div>
-  </div>
-
+  <script>
+    document.querySelectorAll(".footerYear").forEach(el => {
+      el.textContent = new Date().getFullYear();
+    });
+  </script>
 </body>
 </html>
