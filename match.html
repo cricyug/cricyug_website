@@ -3,35 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Match Details - CricYug</title>
+  <meta name="description" content="Live cricket match details, score, venue, teams, AI insight and win probability on CricYug." />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0b1f2a" />
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="stylesheet" href="css/style.css" />
+
   <style>
-    :root{
-      --bg1:#0b1f2a;
-      --bg2:#0f3443;
-      --card: rgba(255,255,255,.06);
-      --text:#eaf3f8;
-      --muted: rgba(234,243,248,.72);
-      --brand:#ffcc00;
-      --line: rgba(255,255,255,.12);
-      --radius:18px;
-    }
-
-    *{box-sizing:border-box}
-
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans";
-      color:var(--text);
-      background: linear-gradient(135deg, var(--bg1), var(--bg2));
-      min-height:100vh;
-    }
-
-    .wrap{
-      max-width:1000px;
-      margin:0 auto;
-      padding:24px 18px 50px;
-    }
-
     .top{
       display:flex;
       justify-content:space-between;
@@ -59,31 +40,10 @@
       color:var(--muted);
     }
 
-    .card{
-      background: var(--card);
-      border:1px solid var(--line);
-      border-radius: var(--radius);
-      padding:22px;
-      margin-bottom:16px;
-    }
-
     h1{
       margin:0 0 10px;
       font-size:32px;
       line-height:1.15;
-    }
-
-    .muted{color:var(--muted)}
-
-    .pill{
-      display:inline-flex;
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.05);
-      color:var(--muted);
-      font-size:12px;
-      margin-bottom:12px;
     }
 
     .grid{
@@ -109,6 +69,7 @@
       font-size:16px;
       font-weight:700;
       line-height:1.5;
+      white-space:pre-line;
     }
 
     .insight{
@@ -123,7 +84,7 @@
   </style>
 </head>
 <body>
-  <div class="wrap">
+  <div class="wrap" style="padding-top:24px; padding-bottom:50px;">
     <div class="top">
       <a class="backBtn" href="index.html">← Back to Home</a>
       <div class="pageTitle">CricYug Match Center</div>
@@ -148,7 +109,7 @@
         </div>
       </div>
 
-      <p id="matchStatus" class="muted" style="margin-top:10px;"></p>
+      <p id="matchStatus" style="margin-top:10px; color:var(--muted);"></p>
     </div>
 
     <div class="card">
@@ -207,6 +168,11 @@
     <div class="card insight">
       <div class="label">AI Insight Box</div>
       <div id="aiInsight" class="value">Loading insight...</div>
+    </div>
+
+    <div class="card">
+      <div class="label">AI Match Engine</div>
+      <div id="aiEngine" class="value">Loading AI analysis...</div>
     </div>
   </div>
 
@@ -342,14 +308,8 @@
         const second = score[1];
 
         let text = "";
-
-        if (first) {
-          text += `${first.r || "-"} / ${first.w || "-"}`;
-        }
-
-        if (second) {
-          text += ` | ${second.r || "-"} / ${second.w || "-"}`;
-        }
+        if (first) text += `${first.r || "-"} / ${first.w || "-"}`;
+        if (second) text += ` | ${second.r || "-"} / ${second.w || "-"}`;
 
         document.getElementById("headerScore").textContent = text;
       }
@@ -439,6 +399,73 @@
       el.innerHTML = `${team1}: <b>${defendingProb}%</b><br>${team2}: <b>${chasingProb}%</b>`;
     }
 
+    function renderAiEngine(match) {
+      const el = document.getElementById("aiEngine");
+      if (!el) return;
+
+      const teams = Array.isArray(match.teams) ? match.teams : [];
+      const score = Array.isArray(match.score) ? match.score : [];
+
+      if (teams.length < 2) {
+        el.textContent = "AI analysis not available.";
+        return;
+      }
+
+      const team1 = teams[0];
+      const team2 = teams[1];
+
+      if (match.matchEnded) {
+        el.innerHTML = `
+          <b>Result Summary:</b><br>
+          ${match.status || "Match finished."}<br><br>
+          <b>AI View:</b><br>
+          ${team1} and ${team2} contest has concluded. CricYug AI marks this as a completed match with final outcome confirmed.
+        `;
+        return;
+      }
+
+      if (!match.matchStarted) {
+        el.innerHTML = `
+          <b>Pre-Match Insight:</b><br>
+          This match has not started yet.<br><br>
+          <b>AI View:</b><br>
+          Starting probability is neutral. Pre-match prediction, venue trend, and key player watch can be added next.
+        `;
+        return;
+      }
+
+      if (score.length >= 2) {
+        const first = score[0];
+        const second = score[1];
+
+        const firstRuns = Number(first.r || 0);
+        const secondRuns = Number(second.r || 0);
+        const secondWkts = Number(second.w || 0);
+        const secondOvers = Number(second.o || 0);
+
+        const target = firstRuns + 1;
+        const runsNeeded = target - secondRuns;
+        const wicketsLeft = 10 - secondWkts;
+
+        el.innerHTML = `
+          <b>Live Chase Insight:</b><br>
+          Target: ${target}<br>
+          Runs Needed: ${runsNeeded > 0 ? runsNeeded : 0}<br>
+          Wickets Left: ${wicketsLeft}<br>
+          Overs Used: ${secondOvers}<br><br>
+          <b>AI View:</b><br>
+          ${runsNeeded <= 20
+            ? "Chasing side is close to finishing the game."
+            : runsNeeded <= 50
+            ? "Match is balanced but chase is still alive."
+            : "Defending side still has pressure advantage."}
+        `;
+        return;
+      }
+
+      el.textContent = "AI analysis is building...";
+    }
+
     async function loadMatch() {
       const id = getQueryParam("id");
 
@@ -479,6 +506,7 @@
         renderTeamLogos(match);
         renderMatchHeader(match);
         renderWinProbability(match);
+        renderAiEngine(match);
       } catch (err) {
         console.error(err);
         document.getElementById("matchStatus").textContent = "Error loading match";
@@ -488,6 +516,7 @@
     }
 
     loadMatch();
+    setInterval(loadMatch, 30000);
   </script>
 </body>
 </html>
