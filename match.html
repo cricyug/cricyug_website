@@ -15,7 +15,9 @@
       --line: rgba(255,255,255,.12);
       --radius:18px;
     }
+
     *{box-sizing:border-box}
+
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans";
@@ -23,11 +25,13 @@
       background: linear-gradient(135deg, var(--bg1), var(--bg2));
       min-height:100vh;
     }
+
     .wrap{
       max-width:1000px;
       margin:0 auto;
       padding:24px 18px 50px;
     }
+
     .top{
       display:flex;
       justify-content:space-between;
@@ -36,6 +40,7 @@
       margin-bottom:18px;
       flex-wrap:wrap;
     }
+
     .backBtn{
       display:inline-flex;
       align-items:center;
@@ -48,10 +53,12 @@
       text-decoration:none;
       font-weight:700;
     }
+
     .pageTitle{
       font-size:14px;
       color:var(--muted);
     }
+
     .card{
       background: var(--card);
       border:1px solid var(--line);
@@ -59,14 +66,15 @@
       padding:22px;
       margin-bottom:16px;
     }
+
     h1{
       margin:0 0 10px;
       font-size:32px;
       line-height:1.15;
     }
-    .muted{
-      color:var(--muted);
-    }
+
+    .muted{color:var(--muted)}
+
     .pill{
       display:inline-flex;
       padding:6px 10px;
@@ -77,31 +85,37 @@
       font-size:12px;
       margin-bottom:12px;
     }
+
     .grid{
       display:grid;
       grid-template-columns: repeat(2, 1fr);
       gap:14px;
     }
+
     .miniCard{
       background: rgba(255,255,255,.04);
       border:1px solid var(--line);
       border-radius:14px;
       padding:16px;
     }
+
     .label{
       color:var(--muted);
       font-size:12px;
       margin-bottom:6px;
     }
+
     .value{
       font-size:16px;
       font-weight:700;
       line-height:1.5;
     }
+
     .insight{
       border-left:4px solid var(--brand);
       padding-left:14px;
     }
+
     @media (max-width: 700px){
       .grid{grid-template-columns:1fr}
       h1{font-size:26px}
@@ -117,13 +131,34 @@
 
     <div class="card">
       <div id="matchType" class="pill">Loading...</div>
-      <h1 id="matchName">Loading match...</h1>
-      <p id="matchStatus" class="muted"></p>
+
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-top:10px;">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <img id="team1Logo" alt="Team 1" style="width:40px; height:40px; border-radius:50%; background:#fff;" />
+          <div id="team1Name" style="font-weight:700;">Team A</div>
+        </div>
+
+        <div id="headerScore" style="font-size:22px; font-weight:800;">
+          vs
+        </div>
+
+        <div style="display:flex; align-items:center; gap:10px;">
+          <div id="team2Name" style="font-weight:700;">Team B</div>
+          <img id="team2Logo" alt="Team 2" style="width:40px; height:40px; border-radius:50%; background:#fff;" />
+        </div>
+      </div>
+
+      <p id="matchStatus" class="muted" style="margin-top:10px;"></p>
     </div>
 
     <div class="card">
       <div class="label">Live Score</div>
       <div id="scoreWrap" class="value">Loading score...</div>
+    </div>
+
+    <div class="card">
+      <div class="label">Win Probability</div>
+      <div id="winProbability" class="value">Calculating...</div>
     </div>
 
     <div class="grid">
@@ -135,6 +170,7 @@
       <div class="miniCard">
         <div class="label">Teams</div>
         <div id="matchTeams" class="value">Loading...</div>
+        <div id="teamLogos" style="display:flex; gap:12px; margin-top:12px; flex-wrap:wrap;"></div>
       </div>
 
       <div class="miniCard">
@@ -145,6 +181,26 @@
       <div class="miniCard">
         <div class="label">Match ID</div>
         <div id="matchId" class="value">Loading...</div>
+      </div>
+
+      <div class="miniCard">
+        <div class="label">Match Date</div>
+        <div id="matchDate" class="value">Loading...</div>
+      </div>
+
+      <div class="miniCard">
+        <div class="label">Match Type</div>
+        <div id="matchTypeInfo" class="value">Loading...</div>
+      </div>
+
+      <div class="miniCard">
+        <div class="label">Series ID</div>
+        <div id="seriesId" class="value">Loading...</div>
+      </div>
+
+      <div class="miniCard">
+        <div class="label">Series Name</div>
+        <div id="seriesName" class="value">Loading...</div>
       </div>
     </div>
 
@@ -176,12 +232,15 @@
 
     function getAiInsight(match) {
       if (match.matchEnded) {
-        return `This match has ended. Final update: ${match.status || "Result available"}.`;
+        const result = match.status || "Match completed";
+        return `CricYug AI Insight:\n\n${result}.\n\nThe chasing team managed the run rate well and controlled the match situation.\nFuture versions will include win probability, momentum shifts and player impact analysis.`;
       }
+
       if (match.matchStarted) {
-        return `Live match detected. CricYug AI can next show win probability, momentum shifts, and batter vs bowler insights here.`;
+        return `CricYug AI Insight:\n\nLive match detected.\n\nAI will soon show win probability, pressure index and key player impact during the match.`;
       }
-      return `Upcoming match. CricYug AI can later show predicted key players, venue trend, and pre-match insight here.`;
+
+      return `CricYug AI Insight:\n\nUpcoming match.\n\nAI will later predict winning chances, pitch behavior and key players before the match starts.`;
     }
 
     function renderScore(match) {
@@ -199,21 +258,194 @@
         const inning = item.inning || "Inning";
 
         return `
-          <div style="margin-bottom:12px; padding:12px; border:1px solid rgba(255,255,255,.12); border-radius:12px; background:rgba(255,255,255,.04);">
-            <div style="font-size:14px; color:rgba(234,243,248,.72); margin-bottom:6px;">${inning}</div>
-            <div style="font-size:24px; font-weight:800;">${runs}/${wickets}</div>
-            <div style="font-size:14px; color:rgba(234,243,248,.72);">Overs: ${overs}</div>
+          <div style="
+            margin-bottom:12px;
+            padding:16px;
+            border:1px solid rgba(255,255,255,.12);
+            border-radius:14px;
+            background:rgba(255,255,255,.04);
+          ">
+            <div style="font-size:13px; color:rgba(234,243,248,.72); margin-bottom:8px;">
+              ${inning}
+            </div>
+            <div style="font-size:28px; font-weight:800; line-height:1.1;">
+              ${runs}/${wickets}
+            </div>
+            <div style="font-size:14px; color:rgba(234,243,248,.72); margin-top:6px;">
+              Overs: ${overs}
+            </div>
           </div>
         `;
       }).join("");
+    }
+
+    function formatMatchDate(dateStr) {
+      if (!dateStr) return "N/A";
+
+      const d = new Date(dateStr);
+      if (isNaN(d.getTime())) return dateStr;
+
+      return d.toLocaleString("en-IN", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+        hour: "numeric",
+        minute: "2-digit"
+      });
+    }
+
+    function renderTeamLogos(match) {
+      const teamLogos = document.getElementById("teamLogos");
+
+      if (!teamLogos) return;
+
+      if (!Array.isArray(match.teamInfo) || !match.teamInfo.length) {
+        teamLogos.innerHTML = "<div style='color:rgba(234,243,248,.72); font-size:14px;'>Logos not available.</div>";
+        return;
+      }
+
+      teamLogos.innerHTML = match.teamInfo.map(team => {
+        const name = team.name || "Team";
+        const img = team.img || "";
+        const shortname = team.shortname || "";
+
+        return `
+          <div style="display:flex; align-items:center; gap:10px; padding:10px 12px; border:1px solid rgba(255,255,255,.12); border-radius:12px; background:rgba(255,255,255,.04);">
+            ${img ? `<img src="${img}" alt="${name}" style="width:34px; height:34px; border-radius:999px; object-fit:cover; background:#fff;" />` : ""}
+            <div>
+              <div style="font-size:14px; font-weight:700;">${name}</div>
+              <div style="font-size:12px; color:rgba(234,243,248,.72);">${shortname}</div>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function renderMatchHeader(match) {
+      if (!Array.isArray(match.teamInfo)) return;
+
+      const t1 = match.teamInfo[0];
+      const t2 = match.teamInfo[1];
+
+      if (!t1 || !t2) return;
+
+      document.getElementById("team1Name").textContent = t1.name || "";
+      document.getElementById("team2Name").textContent = t2.name || "";
+
+      if (t1.img) document.getElementById("team1Logo").src = t1.img;
+      if (t2.img) document.getElementById("team2Logo").src = t2.img;
+
+      const score = Array.isArray(match.score) ? match.score : [];
+
+      if (score.length) {
+        const first = score[0];
+        const second = score[1];
+
+        let text = "";
+
+        if (first) {
+          text += `${first.r || "-"} / ${first.w || "-"}`;
+        }
+
+        if (second) {
+          text += ` | ${second.r || "-"} / ${second.w || "-"}`;
+        }
+
+        document.getElementById("headerScore").textContent = text;
+      }
+    }
+
+    function renderWinProbability(match) {
+      const el = document.getElementById("winProbability");
+      if (!el) return;
+
+      if (!Array.isArray(match.teams) || match.teams.length < 2) {
+        el.textContent = "Probability not available.";
+        return;
+      }
+
+      const team1 = match.teams[0];
+      const team2 = match.teams[1];
+
+      if (match.matchEnded) {
+        const status = (match.status || "").toLowerCase();
+
+        if (status.includes(team1.toLowerCase())) {
+          el.innerHTML = `${team1}: <b>100%</b><br>${team2}: <b>0%</b>`;
+          return;
+        }
+
+        if (status.includes(team2.toLowerCase())) {
+          el.innerHTML = `${team1}: <b>0%</b><br>${team2}: <b>100%</b>`;
+          return;
+        }
+
+        el.textContent = "Final result available.";
+        return;
+      }
+
+      if (!match.matchStarted) {
+        el.innerHTML = `${team1}: <b>50%</b><br>${team2}: <b>50%</b>`;
+        return;
+      }
+
+      if (!Array.isArray(match.score) || match.score.length < 2) {
+        el.innerHTML = `${team1}: <b>50%</b><br>${team2}: <b>50%</b>`;
+        return;
+      }
+
+      const first = match.score[0];
+      const second = match.score[1];
+
+      const firstRuns = Number(first.r || 0);
+      const secondRuns = Number(second.r || 0);
+      const secondWickets = Number(second.w || 0);
+      const secondOvers = Number(second.o || 0);
+
+      const target = firstRuns + 1;
+      const runsNeeded = target - secondRuns;
+      const ballsLeft = Math.max(0, Math.round((20 - secondOvers) * 6));
+      const wicketsLeft = Math.max(0, 10 - secondWickets);
+
+      if (runsNeeded <= 0) {
+        el.innerHTML = `${team1}: <b>0%</b><br>${team2}: <b>100%</b>`;
+        return;
+      }
+
+      if (ballsLeft <= 0 || wicketsLeft <= 0) {
+        el.innerHTML = `${team1}: <b>95%</b><br>${team2}: <b>5%</b>`;
+        return;
+      }
+
+      const requiredRate = (runsNeeded * 6) / ballsLeft;
+      let chasingProb = 50;
+
+      if (requiredRate <= 6) chasingProb += 20;
+      else if (requiredRate <= 8) chasingProb += 10;
+      else if (requiredRate >= 12) chasingProb -= 20;
+      else if (requiredRate >= 10) chasingProb -= 10;
+
+      if (wicketsLeft >= 7) chasingProb += 15;
+      else if (wicketsLeft >= 5) chasingProb += 8;
+      else if (wicketsLeft <= 2) chasingProb -= 20;
+      else if (wicketsLeft <= 4) chasingProb -= 10;
+
+      if (secondRuns > firstRuns * 0.75) chasingProb += 5;
+      if (secondOvers > 15 && runsNeeded > 30) chasingProb -= 15;
+
+      chasingProb = Math.max(5, Math.min(95, chasingProb));
+      const defendingProb = 100 - chasingProb;
+
+      el.innerHTML = `${team1}: <b>${defendingProb}%</b><br>${team2}: <b>${chasingProb}%</b>`;
     }
 
     async function loadMatch() {
       const id = getQueryParam("id");
 
       if (!id) {
-        document.getElementById("matchName").textContent = "Match ID missing";
+        document.getElementById("matchStatus").textContent = "";
         document.getElementById("aiInsight").textContent = "No match ID found in URL.";
+        document.getElementById("scoreWrap").textContent = "Match ID missing.";
         return;
       }
 
@@ -222,8 +454,9 @@
         const json = await res.json();
 
         if (json.apiStatus !== "success" || !json.data) {
-          document.getElementById("matchName").textContent = "Failed to load match";
+          document.getElementById("matchStatus").textContent = "Failed to load match";
           document.getElementById("aiInsight").textContent = json.reason || "API response was not valid.";
+          document.getElementById("scoreWrap").textContent = "Could not load score.";
           return;
         }
 
@@ -231,18 +464,26 @@
 
         document.title = `${match.name || "Match"} - CricYug`;
         document.getElementById("matchType").textContent = getMatchType(match);
-        document.getElementById("matchName").textContent = match.name || "Match";
         document.getElementById("matchStatus").textContent = match.status || "No status available";
         document.getElementById("matchVenue").textContent = match.venue || "Unknown venue";
         document.getElementById("matchTeams").textContent = Array.isArray(match.teams) ? match.teams.join(" vs ") : "Teams unavailable";
         document.getElementById("matchState").textContent = getMatchState(match);
         document.getElementById("matchId").textContent = match.id || "N/A";
+        document.getElementById("matchDate").textContent = formatMatchDate(match.date);
+        document.getElementById("matchTypeInfo").textContent = match.matchType || "N/A";
+        document.getElementById("seriesId").textContent = match.series_id || "N/A";
+        document.getElementById("seriesName").textContent = match.series_name || "N/A";
         document.getElementById("aiInsight").textContent = getAiInsight(match);
-        renderScore(match);
 
+        renderScore(match);
+        renderTeamLogos(match);
+        renderMatchHeader(match);
+        renderWinProbability(match);
       } catch (err) {
-        document.getElementById("matchName").textContent = "Error loading match";
+        console.error(err);
+        document.getElementById("matchStatus").textContent = "Error loading match";
         document.getElementById("aiInsight").textContent = "Could not load match details right now.";
+        document.getElementById("scoreWrap").textContent = "Could not load score.";
       }
     }
 
