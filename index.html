@@ -4,15 +4,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CricYug - AI Cricket Platform</title>
+  <title>CricYug — Live Cricket Scores, AI Match Insights & News</title>
+  <meta name="description" content="CricYug delivers live cricket scores, match pages, scorecards, news, team pages and AI-ready cricket experiences." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="stylesheet" href="css/style.css" />
-  <link rel="icon" href="favicon.svg" />
 </head>
 <body>
 
 <header class="topbar">
   <div class="wrap nav">
-    <div class="brand">CricYug</div>
+    <div class="brand">
+      <div class="logoMark">CY</div>
+      <div>
+        <div>CricYug</div>
+        <div style="font-size:12px;color:var(--muted);font-weight:600">AI Powered Cricket</div>
+      </div>
+    </div>
     <nav class="navlinks">
       <a href="index.html">Home</a>
       <a href="news.html">News</a>
@@ -20,45 +27,86 @@
       <a href="teams.html">Teams</a>
       <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
+      <a href="privacy.html">Privacy</a>
     </nav>
   </div>
 </header>
 
 <section class="hero">
   <div class="wrap">
-    <div class="heroBox">
-      <div class="tag">AI Powered Cricket</div>
-      <h1>Live Matches, Scorecards and Smart Cricket Experience</h1>
-      <p>CricYug brings live match updates, match pages and cricket data in a fast modern design.</p>
+    <div class="heroGrid">
+      <div class="heroCard">
+        <div class="chip">🏏 Live Scores • 🧠 AI Ready • 📰 Cricket News • 🚀 Super Site</div>
+        <h1>Welcome to the <span style="color:var(--brand)">AI Powered</span> Cricket Platform</h1>
+        <p>CricYug combines live matches, scorecards, pages and modern design in one fast cricket experience.</p>
+        <div class="heroActions">
+          <a class="btn" href="#live">Explore Live</a>
+          <a class="btnGhost" href="news.html">Read News</a>
+          <a class="btnGhost" href="players.html">Players</a>
+          <a class="btnGhost" href="teams.html">Teams</a>
+        </div>
+      </div>
+      <aside class="sideCard">
+        <div class="pill">Launch Ready</div>
+        <h3>Super CricYug Build</h3>
+        <p class="muted">Homepage, match pages, scorecards, content pages and API integration are included.</p>
+        <div class="infoList">
+          <div class="infoRow"><span class="infoLabel">Pages</span><span class="infoValue">10+</span></div>
+          <div class="infoRow"><span class="infoLabel">Live Matches</span><span class="infoValue" id="statMatches">0</span></div>
+          <div class="infoRow"><span class="infoLabel">Status</span><span class="infoValue">MVP Live</span></div>
+          <div class="infoRow"><span class="infoLabel">Updated</span><span class="infoValue" id="lastUpdated">--</span></div>
+        </div>
+      </aside>
     </div>
   </div>
 </section>
-<section class="liveSection">
+
+<section id="live" class="section">
   <div class="wrap">
     <div class="sectionHead">
-      <h2>Live Matches</h2>
-      <p>Auto-loaded from CricYug API</p>
+      <div>
+        <h2>Featured Live Match</h2>
+        <p>Highlighted by CricYug</p>
+      </div>
+      <input id="searchInput" class="searchInput" placeholder="Search team or venue..." />
+    </div>
+    <div id="featuredMatch"></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="sectionHead">
+      <h2>Live Match Center</h2>
+      <p>Auto-updates from CricYug API</p>
     </div>
     <div id="matches" class="matchGrid">
       <div class="loadingCard">Loading matches...</div>
     </div>
   </div>
 </section>
+
 <section class="section">
   <div class="wrap">
-    <div class="sectionHead"><h2>Why CricYug</h2><p>Simple, fast and future-ready</p></div>
+    <div class="sectionHead">
+      <h2>Why CricYug</h2>
+      <p>Built differently for modern cricket fans</p>
+    </div>
     <div class="grid3">
-      <div class="card"><h3>Live Data</h3><p class="muted">Live matches powered through API integration.</p></div>
-      <div class="card"><h3>Scorecards</h3><p class="muted">Separate scorecard page for detailed match data.</p></div>
-      <div class="card"><h3>AI Ready</h3><p class="muted">Designed to grow into AI insights and prediction tools.</p></div>
+      <div class="card"><div class="pill">LIVE DATA</div><h3>Fast Match Updates</h3><p class="muted">Live matches are loaded through API and updated regularly for a faster experience.</p></div>
+      <div class="card"><div class="pill">SMART UI</div><h3>Professional Design</h3><p class="muted">A cleaner card-based design with featured match support and premium layout.</p></div>
+      <div class="card"><div class="pill">AI READY</div><h3>Future Expansion</h3><p class="muted">CricYug is structured for AI summaries, prediction, player analysis and more.</p></div>
     </div>
   </div>
 </section>
 
 <footer class="footer">
   <div class="wrap">
-    <div style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap">
-      <div><strong style="color:white">CricYug</strong><br>AI Powered Cricket Platform</div>
+    <div class="footerTop">
+      <div>
+        <div style="font-weight:800;color:#fff">CricYug</div>
+        <div>Live Cricket. Smart Insights. Built for the Future.</div>
+      </div>
       <div class="footerLinks">
         <a href="index.html">Home</a>
         <a href="news.html">News</a>
@@ -66,11 +114,17 @@
         <a href="teams.html">Teams</a>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="404.html">404</a>
       </div>
+    </div>
+    <div class="notice">
+      CricYug is an independent cricket platform and is not affiliated with Cricbuzz, ICC, BCCI, or any cricket board.
     </div>
   </div>
 </footer>
 
+<script src="js/site.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

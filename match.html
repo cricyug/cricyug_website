@@ -4,15 +4,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Match - CricYug</title>
+  <title>Match Details - CricYug</title>
+  <meta name="description" content="Live match details and match status on CricYug." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="stylesheet" href="css/style.css" />
-  <link rel="icon" href="favicon.svg" />
 </head>
 <body>
 
 <header class="topbar">
   <div class="wrap nav">
-    <div class="brand">CricYug</div>
+    <div class="brand">
+      <div class="logoMark">CY</div>
+      <div>
+        <div>CricYug</div>
+        <div style="font-size:12px;color:var(--muted);font-weight:600">AI Powered Cricket</div>
+      </div>
+    </div>
     <nav class="navlinks">
       <a href="index.html">Home</a>
       <a href="news.html">News</a>
@@ -20,28 +27,53 @@
       <a href="teams.html">Teams</a>
       <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
+      <a href="privacy.html">Privacy</a>
     </nav>
   </div>
 </header>
 
 <section class="section">
   <div class="wrap">
-    <a class="btn" href="index.html">← Back to Home</a>
+    <div class="pageTitle">
+      <h1 id="matchTitle">Loading match...</h1>
+      <p id="matchTeams">Fetching teams...</p>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <div class="pill">MATCH STATUS</div>
+        <h3 id="matchStatus">Loading...</h3>
+        <p class="muted" id="matchVenue">Venue loading...</p>
+        <div class="divider"></div>
+        <div class="infoList">
+          <div class="infoRow"><span class="infoLabel">Match Type</span><span class="infoValue" id="matchType">--</span></div>
+          <div class="infoRow"><span class="infoLabel">Date</span><span class="infoValue" id="matchDate">--</span></div>
+        </div>
+        <div style="margin-top:18px">
+          <a id="scoreBtn" class="btn" href="#">Open Scorecard</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="pill">LIVE SCORE</div>
+        <div id="scoreWrap" class="infoList">
+          <div class="loadingCard">Loading score...</div>
+        </div>
+      </div>
+    </div>
     <div class="card" style="margin-top:18px">
-      <div class="tag">MATCH DETAILS</div>
-      <h1 id="title">Loading match...</h1>
-      <p id="teams" class="teams"></p>
-      <p id="status" class="statusText"></p>
-      <div class="divider"></div>
-      <a id="scoreBtn" class="btn" href="#">View Scorecard</a>
+      <div class="pill">AI INSIGHT</div>
+      <h3>Smart Match Reading</h3>
+      <p id="aiInsight" class="muted">Loading AI insight...</p>
     </div>
   </div>
 </section>
 
 <footer class="footer">
   <div class="wrap">
-    <div style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap">
-      <div><strong style="color:white">CricYug</strong><br>AI Powered Cricket Platform</div>
+    <div class="footerTop">
+      <div>
+        <div style="font-weight:800;color:#fff">CricYug</div>
+        <div>Live Cricket. Smart Insights. Built for the Future.</div>
+      </div>
       <div class="footerLinks">
         <a href="index.html">Home</a>
         <a href="news.html">News</a>
@@ -49,11 +81,17 @@
         <a href="teams.html">Teams</a>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="404.html">404</a>
       </div>
+    </div>
+    <div class="notice">
+      CricYug is an independent cricket platform and is not affiliated with Cricbuzz, ICC, BCCI, or any cricket board.
     </div>
   </div>
 </footer>
 
+<script src="js/site.js"></script>
 <script src="js/match.js"></script>
 </body>
 </html>

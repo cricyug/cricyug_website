@@ -4,15 +4,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Scorecard - CricYug</title>
+  <title>Match Scorecard - CricYug</title>
+  <meta name="description" content="Match scorecard on CricYug." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="stylesheet" href="css/style.css" />
-  <link rel="icon" href="favicon.svg" />
 </head>
 <body>
 
 <header class="topbar">
   <div class="wrap nav">
-    <div class="brand">CricYug</div>
+    <div class="brand">
+      <div class="logoMark">CY</div>
+      <div>
+        <div>CricYug</div>
+        <div style="font-size:12px;color:var(--muted);font-weight:600">AI Powered Cricket</div>
+      </div>
+    </div>
     <nav class="navlinks">
       <a href="index.html">Home</a>
       <a href="news.html">News</a>
@@ -20,25 +27,31 @@
       <a href="teams.html">Teams</a>
       <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
+      <a href="privacy.html">Privacy</a>
     </nav>
   </div>
 </header>
 
 <section class="section">
   <div class="wrap">
-    <a class="btn" href="index.html">← Back to Home</a>
-    <div class="card" style="margin-top:18px">
-      <div class="tag">SCORECARD</div>
+    <div class="pageTitle">
       <h1>Match Scorecard</h1>
-      <div id="scorecard" class="muted">Loading scorecard...</div>
+      <p>Detailed raw scorecard output from CricYug API.</p>
+    </div>
+    <div class="card">
+      <div class="pill">SCORECARD DATA</div>
+      <div id="scorecardBox">Loading scorecard...</div>
     </div>
   </div>
 </section>
 
 <footer class="footer">
   <div class="wrap">
-    <div style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap">
-      <div><strong style="color:white">CricYug</strong><br>AI Powered Cricket Platform</div>
+    <div class="footerTop">
+      <div>
+        <div style="font-weight:800;color:#fff">CricYug</div>
+        <div>Live Cricket. Smart Insights. Built for the Future.</div>
+      </div>
       <div class="footerLinks">
         <a href="index.html">Home</a>
         <a href="news.html">News</a>
@@ -46,11 +59,17 @@
         <a href="teams.html">Teams</a>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="404.html">404</a>
       </div>
+    </div>
+    <div class="notice">
+      CricYug is an independent cricket platform and is not affiliated with Cricbuzz, ICC, BCCI, or any cricket board.
     </div>
   </div>
 </footer>
 
+<script src="js/site.js"></script>
 <script src="js/scorecard.js"></script>
 </body>
 </html>
