@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teams - CricYug</title>
+  <style>
+    body{
+      margin:0;
+      font-family:Arial,sans-serif;
+      background:#0b1f2a;
+      color:#fff;
+      padding:30px;
+    }
+    .top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:24px;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+    .back{
+      color:#fff;
+      text-decoration:none;
+      border:1px solid rgba(255,255,255,.2);
+      padding:10px 14px;
+      border-radius:10px;
+      display:inline-block;
+    }
+    .title{
+      font-size:32px;
+      font-weight:700;
+      margin:0;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:16px;
+    }
+    .card{
+      background:#122b3a;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:16px;
+      padding:18px;
+    }
+    .name{
+      font-size:20px;
+      font-weight:700;
+      margin-bottom:8px;
+    }
+    .meta{
+      color:rgba(255,255,255,.75);
+      font-size:14px;
+      line-height:1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top">
+    <a class="back" href="index.html">← Back to Home</a>
+    <h1 class="title">Cricket Teams</h1>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="name">India</div>
+      <div class="meta">Format: International<br>Status: Active</div>
+    </div>
+
+    <div class="card">
+      <div class="name">Australia</div>
+      <div class="meta">Format: International<br>Status: Active</div>
+    </div>
+
+    <div class="card">
+      <div class="name">England</div>
+      <div class="meta">Format: International<br>Status: Active</div>
+    </div>
+
+    <div class="card">
+      <div class="name">Pakistan</div>
+      <div class="meta">Format: International<br>Status: Active</div>
+    </div>
+
+    <div class="card">
+      <div class="name">South Africa</div>
+      <div class="meta">Format: International<br>Status: Active</div>
+    </div>
+
+    <div class="card">
+      <div class="name">New Zealand</div>
+      <div class="meta">Format: International<br>Status: Active</div>
+    </div>
+  </div>
+
+</body>
+</html>
