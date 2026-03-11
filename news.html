@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>News - CricYug</title>
+  <style>
+    body{
+      margin:0;
+      font-family:Arial,sans-serif;
+      background:#0b1f2a;
+      color:#fff;
+      padding:30px;
+    }
+    .top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:24px;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+    .back{
+      color:#fff;
+      text-decoration:none;
+      border:1px solid rgba(255,255,255,.2);
+      padding:10px 14px;
+      border-radius:10px;
+      display:inline-block;
+    }
+    .title{
+      font-size:32px;
+      font-weight:700;
+      margin:0;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:16px;
+    }
+    .card{
+      background:#122b3a;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:16px;
+      padding:18px;
+    }
+    .tag{
+      display:inline-block;
+      font-size:12px;
+      color:rgba(255,255,255,.75);
+      border:1px solid rgba(255,255,255,.15);
+      border-radius:999px;
+      padding:6px 10px;
+      margin-bottom:10px;
+    }
+    .headline{
+      font-size:20px;
+      font-weight:700;
+      margin-bottom:8px;
+      line-height:1.4;
+    }
+    .meta{
+      color:rgba(255,255,255,.75);
+      font-size:14px;
+      line-height:1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top">
+    <a class="back" href="index.html">← Back to Home</a>
+    <h1 class="title">Cricket News</h1>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="tag">FEATURE</div>
+      <div class="headline">How CricYug Will Use AI in Cricket</div>
+      <div class="meta">
+        Win probability, player form tracking and match momentum are becoming key tools in modern cricket analysis.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="tag">ANALYSIS</div>
+      <div class="headline">Top 5 Powerplay Strategies in T20 Cricket</div>
+      <div class="meta">
+        Teams are focusing more on controlled aggression in the first six overs to maximize scoring without losing too many wickets.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="tag">UPDATE</div>
+      <div class="headline">CricYug Platform Update</div>
+      <div class="meta">
+        Live center, players page, teams page and AI match engine are now part of the CricYug MVP.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="tag">INSIGHT</div>
+      <div class="headline">Why Data Is Changing Cricket Decisions</div>
+      <div class="meta">
+        Matchups, venue trends and bowling patterns are increasingly used to influence batting order and field placements.
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
