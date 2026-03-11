@@ -3,87 +3,53 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CricYug — AI Powered Cricket</title>
-  <meta name="description" content="CricYug: Live Scores, Cricket News, AI Predictions & Analytics." />
+
+  <title>CricYug — Live Scores, Cricket News & AI Match Insights</title>
+  <meta name="description" content="CricYug delivers live cricket scores, match insights, player pages, team pages and AI-powered cricket analysis." />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0b1f2a" />
+
+  <meta property="og:title" content="CricYug — AI Powered Cricket" />
+  <meta property="og:description" content="Live Scores, Cricket News, AI Predictions and Match Insights." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://cricyug.com" />
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="stylesheet" href="css/style.css" />
+
   <style>
-    :root{
-      --bg1:#0b1f2a;
-      --bg2:#0f3443;
-      --card: rgba(255,255,255,.08);
-      --card2: rgba(255,255,255,.06);
-      --text:#eaf3f8;
-      --muted: rgba(234,243,248,.72);
-      --brand:#ffcc00;
-      --brand2:#ffaa00;
-      --line: rgba(255,255,255,.12);
-      --shadow: 0 12px 30px rgba(0,0,0,.35);
-      --radius: 18px;
-    }
-
-    *{box-sizing:border-box}
-
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans";
-      color:var(--text);
-      background:
-        radial-gradient(1200px 800px at 20% 10%, #163b48 0%, transparent 55%),
-        radial-gradient(1000px 700px at 90% 25%, #1a2b5a 0%, transparent 55%),
-        linear-gradient(135deg, var(--bg1), var(--bg2));
-      min-height:100vh;
-    }
-
-    a{color:inherit; text-decoration:none}
-
-    .wrap{
-      max-width:1100px;
-      margin:0 auto;
-      padding:0 18px;
-    }
-
     .topbar{
-      position:sticky;
-      top:0;
-      z-index:50;
+      position:sticky; top:0; z-index:50;
       background: rgba(7,18,24,.65);
       backdrop-filter: blur(10px);
       border-bottom:1px solid var(--line);
     }
 
     .nav{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:14px 0;
-      gap:12px;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0; gap:12px;
     }
 
     .brand{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      font-weight:800;
-      letter-spacing:.2px;
+      display:flex; align-items:center; gap:10px;
+      font-weight:800; letter-spacing:.2px;
+    }
+
+    .brandBlock{
+      display:flex; align-items:center; gap:10px;
     }
 
     .logo{
-      width:38px;
-      height:38px;
-      border-radius:12px;
+      width:38px; height:38px; border-radius:12px;
       background: linear-gradient(135deg, var(--brand), var(--brand2));
-      color:#111;
-      display:grid;
-      place-items:center;
-      box-shadow: var(--shadow);
+      color:#111; display:grid; place-items:center;
+      box-shadow: 0 12px 30px rgba(0,0,0,.35);
       font-weight:900;
     }
 
     .navlinks{
-      display:flex;
-      gap:14px;
-      align-items:center;
-      flex-wrap:wrap;
-      justify-content:flex-end;
+      display:flex; gap:14px; align-items:center;
+      flex-wrap:wrap; justify-content:flex-end;
     }
 
     .navlinks a{
@@ -101,9 +67,7 @@
     }
 
     .cta{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
+      display:inline-flex; align-items:center; gap:10px;
       background: linear-gradient(135deg, var(--brand), var(--brand2));
       color:#111;
       padding:10px 14px;
@@ -111,13 +75,11 @@
       font-weight:800;
       border:0;
       cursor:pointer;
-      box-shadow: var(--shadow);
       white-space:nowrap;
+      box-shadow: 0 12px 30px rgba(0,0,0,.35);
     }
 
-    .cta:active{transform: translateY(1px)}
-
-    .hero{padding:44px 0 18px}
+    .hero{ padding:44px 0 18px; }
 
     .heroGrid{
       display:grid;
@@ -129,9 +91,9 @@
     .heroCard{
       background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.05));
       border:1px solid var(--line);
-      border-radius: var(--radius);
+      border-radius: 18px;
       padding:22px;
-      box-shadow: var(--shadow);
+      box-shadow: 0 12px 30px rgba(0,0,0,.35);
       overflow:hidden;
       position:relative;
     }
@@ -183,12 +145,12 @@
       font-weight:700;
     }
 
-    .ghost:hover{background: rgba(255,255,255,.08)}
+    .ghost:hover{ background: rgba(255,255,255,.08); }
 
     .sideCard{
       background: rgba(255,255,255,.06);
       border:1px solid var(--line);
-      border-radius: var(--radius);
+      border-radius: 18px;
       padding:18px;
     }
 
@@ -206,25 +168,12 @@
       padding:12px;
     }
 
-    .kpi b{
-      display:block;
-      font-size:18px;
-    }
-
-    .kpi span{
-      color:var(--muted);
-      font-size:12px;
-    }
-
-    .section{padding:14px 0}
+    .kpi b{display:block; font-size:18px;}
+    .kpi span{color:var(--muted); font-size:12px;}
 
     .sectionTitle{
-      display:flex;
-      align-items:end;
-      justify-content:space-between;
-      gap:12px;
-      margin:18px 0 10px;
-      flex-wrap:wrap;
+      display:flex; align-items:end; justify-content:space-between; gap:12px;
+      margin:18px 0 10px; flex-wrap:wrap;
     }
 
     .sectionTitle h2{
@@ -239,70 +188,6 @@
       font-size:13px;
     }
 
-    .grid3{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:12px;
-    }
-
-    .grid2{
-      display:grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap:12px;
-    }
-
-    .card{
-      display:block;
-      background: var(--card2);
-      border:1px solid var(--line);
-      border-radius: var(--radius);
-      padding:16px;
-      transition: .2s ease;
-    }
-
-    .card:hover{
-      background: rgba(255,255,255,.08);
-      transform: translateY(-2px);
-    }
-
-    .pill{
-      display:inline-flex;
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.05);
-      color:var(--muted);
-      font-size:12px;
-      margin-bottom:10px;
-    }
-
-    .card h3{
-      margin:0 0 8px;
-      font-size:16px;
-    }
-
-    .card p{
-      margin:0;
-      color:var(--muted);
-      font-size:13px;
-      line-height:1.6;
-    }
-
-    .meta{
-      margin-top:10px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      color:var(--muted);
-      font-size:12px;
-    }
-
-    .divider{
-      height:1px;
-      background:var(--line);
-      margin:18px 0;
-    }
-
     .searchBox{
       padding:10px 12px;
       border-radius:12px;
@@ -313,36 +198,10 @@
       outline:none;
     }
 
-    .searchBox::placeholder{color:var(--muted)}
-
-    .footer{
-      padding:24px 0 40px;
-      color:var(--muted);
-      font-size:13px;
-    }
-
-    .footerGrid{
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
-      border-top:1px solid var(--line);
-      padding-top:16px;
-    }
-
-    .smallLinks{
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-    }
-
-    .smallLinks a{color:var(--muted)}
-    .smallLinks a:hover{color:var(--text)}
+    .searchBox::placeholder{ color:var(--muted); }
 
     .badge{
-      display:inline-flex;
-      gap:8px;
-      align-items:center;
+      display:inline-flex; gap:8px; align-items:center;
       padding:8px 10px;
       border-radius:12px;
       border:1px dashed rgba(255,255,255,.18);
@@ -357,31 +216,42 @@
       font-size:13px;
     }
 
+    .footerGrid{
+      display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
+      border-top:1px solid var(--line);
+      padding-top:16px;
+    }
+
+    .smallLinks{display:flex; gap:12px; flex-wrap:wrap;}
+    .smallLinks a{color:var(--muted);}
+    .smallLinks a:hover{color:var(--text);}
+
     @media (max-width: 900px){
-      .heroGrid{grid-template-columns: 1fr}
-      .h1{font-size:32px}
-      .grid3{grid-template-columns: 1fr}
-      .grid2{grid-template-columns: 1fr}
+      .heroGrid{grid-template-columns:1fr;}
+      .h1{font-size:32px;}
       .navlinks{display:none;}
     }
   </style>
 </head>
-
 <body>
   <header class="topbar">
     <div class="wrap">
       <div class="nav">
         <div class="brand">
-          <div class="logo">CY</div>
-          <div>
-            <div style="font-size:15px; line-height:1;">CricYug</div>
-            <div style="font-size:12px; color:var(--muted); line-height:1.2;">AI Powered Cricket</div>
+          <div class="brandBlock">
+            <div class="logo">CY</div>
+            <div>
+              <div style="font-size:15px; line-height:1;">CricYug</div>
+              <div style="font-size:12px; color:var(--muted); line-height:1.2;">AI Powered Cricket</div>
+            </div>
           </div>
         </div>
 
         <nav class="navlinks" aria-label="Primary">
           <a href="#live">Live</a>
-          <a href="#news">News</a>
+          <a href="news.html">News</a>
+          <a href="players.html">Players</a>
+          <a href="teams.html">Teams</a>
           <a href="#ai">AI</a>
           <a href="#about">About</a>
         </nav>
@@ -407,7 +277,9 @@
 
             <div class="heroActions">
               <a class="cta" href="#live">View Live Center</a>
-              <a class="ghost" href="#news">Read News</a>
+              <a class="ghost" href="news.html">Read News</a>
+              <a class="ghost" href="players.html">Players</a>
+              <a class="ghost" href="teams.html">Teams</a>
               <a class="ghost" href="#ai">AI Features</a>
             </div>
 
@@ -477,26 +349,55 @@
         </div>
 
         <div class="grid3">
-          <article class="card">
+          <a class="card" href="news.html">
             <div class="pill">FEATURE</div>
             <h3>How CricYug Will Use AI in Cricket</h3>
             <p>Win probability, player form trends, matchup insights — explained in simple language.</p>
-            <div class="meta"><span>Read in 2 min</span><span>Coming soon</span></div>
-          </article>
+            <div class="meta"><span>Read in 2 min</span><span>Open News</span></div>
+          </a>
 
-          <article class="card">
+          <a class="card" href="news.html">
             <div class="pill">ANALYSIS</div>
             <h3>Top 5 Powerplay Strategies (T20)</h3>
             <p>Data-backed ideas teams use to maximize powerplay runs and minimize wickets.</p>
-            <div class="meta"><span>Read in 3 min</span><span>Coming soon</span></div>
-          </article>
+            <div class="meta"><span>Read in 3 min</span><span>Open News</span></div>
+          </a>
 
-          <article class="card">
+          <a class="card" href="news.html">
             <div class="pill">UPDATE</div>
             <h3>CricYug Platform Update</h3>
             <p>We’re building: Live center → Android app → AI predictions → multilingual.</p>
-            <div class="meta"><span>Read in 1 min</span><span>Coming soon</span></div>
-          </article>
+            <div class="meta"><span>Read in 1 min</span><span>Open News</span></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="sectionTitle">
+          <h2>CricYug Stats</h2>
+          <p>Current platform highlights</p>
+        </div>
+
+        <div class="grid3">
+          <div class="card">
+            <div class="pill">LIVE</div>
+            <h3>Live Match Center</h3>
+            <p>Real-time matches powered by CricYug API.</p>
+          </div>
+
+          <div class="card">
+            <div class="pill">AI</div>
+            <h3>AI Match Engine</h3>
+            <p>Win probability, AI insight and match summary layer.</p>
+          </div>
+
+          <div class="card">
+            <div class="pill">PAGES</div>
+            <h3>Multi-Page Platform</h3>
+            <p>News, Players, Teams and Match Detail pages are now live.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -533,6 +434,35 @@
       </div>
     </section>
 
+    <section class="section">
+      <div class="wrap">
+        <div class="sectionTitle">
+          <h2>Featured Pages</h2>
+          <p>Explore more CricYug sections</p>
+        </div>
+
+        <div class="grid3">
+          <a class="card" href="news.html">
+            <div class="pill">NEWS</div>
+            <h3>Cricket News</h3>
+            <p>Read the latest CricYug updates, analysis and feature stories.</p>
+          </a>
+
+          <a class="card" href="players.html">
+            <div class="pill">PLAYERS</div>
+            <h3>Top Players</h3>
+            <p>Explore key players, roles and future player pages.</p>
+          </a>
+
+          <a class="card" href="teams.html">
+            <div class="pill">TEAMS</div>
+            <h3>Cricket Teams</h3>
+            <p>Browse international teams and future team profiles.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
     <section id="about" class="section">
       <div class="wrap">
         <div class="sectionTitle">
@@ -564,7 +494,9 @@
           </div>
           <div class="smallLinks">
             <a href="#live">Live</a>
-            <a href="#news">News</a>
+            <a href="news.html">News</a>
+            <a href="players.html">Players</a>
+            <a href="teams.html">Teams</a>
             <a href="#ai">AI</a>
             <a href="#about">About</a>
           </div>
