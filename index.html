@@ -1,130 +1,41 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CricYug — Live Cricket Scores, AI Match Insights & News</title>
-  <meta name="description" content="CricYug delivers live cricket scores, match pages, scorecards, news, team pages and AI-ready cricket experiences." />
-  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-  <link rel="stylesheet" href="css/style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CricYug - Live Cricket Scores</title>
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<header>
+  <h1>CricYug</h1>
+  <p>Live Cricket Scores, Match Center, Players and Teams</p>
+  
+<nav>
+  <a href="index.html">Home</a>
+  <a href="news.html">News</a>
+  <a href="players.html">Players</a>
+  <a href="matches/index.html">Matches</a>
+  <a href="teams/index.html">Teams</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+</nav>
 
-<header class="topbar">
-  <div class="wrap nav">
-    <div class="brand">
-      <div class="logoMark">CY</div>
-      <div>
-        <div>CricYug</div>
-        <div style="font-size:12px;color:var(--muted);font-weight:600">AI Powered Cricket</div>
-      </div>
-    </div>
-    <nav class="navlinks">
-      <a href="index.html">Home</a>
-      <a href="news.html">News</a>
-      <a href="players.html">Players</a>
-      <a href="teams.html">Teams</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-      <a href="privacy.html">Privacy</a>
-    </nav>
-  </div>
 </header>
+<div class="container">
+  <h2>Live Matches</h2>
+  <div id="matches" class="grid"></div>
 
-<section class="hero">
-  <div class="wrap">
-    <div class="heroGrid">
-      <div class="heroCard">
-        <div class="chip">🏏 Live Scores • 🧠 AI Ready • 📰 Cricket News • 🚀 Super Site</div>
-        <h1>Welcome to the <span style="color:var(--brand)">AI Powered</span> Cricket Platform</h1>
-        <p>CricYug combines live matches, scorecards, pages and modern design in one fast cricket experience.</p>
-        <div class="heroActions">
-          <a class="btn" href="#live">Explore Live</a>
-          <a class="btnGhost" href="news.html">Read News</a>
-          <a class="btnGhost" href="players.html">Players</a>
-          <a class="btnGhost" href="teams.html">Teams</a>
-        </div>
-      </div>
-      <aside class="sideCard">
-        <div class="pill">Launch Ready</div>
-        <h3>Super CricYug Build</h3>
-        <p class="muted">Homepage, match pages, scorecards, content pages and API integration are included.</p>
-        <div class="infoList">
-          <div class="infoRow"><span class="infoLabel">Pages</span><span class="infoValue">10+</span></div>
-          <div class="infoRow"><span class="infoLabel">Live Matches</span><span class="infoValue" id="statMatches">0</span></div>
-          <div class="infoRow"><span class="infoLabel">Status</span><span class="infoValue">MVP Live</span></div>
-          <div class="infoRow"><span class="infoLabel">Updated</span><span class="infoValue" id="lastUpdated">--</span></div>
-        </div>
-      </aside>
-    </div>
+  <h2>Explore</h2>
+  <div class="grid">
+    <div class="card"><h3>Match Center</h3><p>Detailed scorecards and live match summaries.</p></div>
+    <div class="card"><h3>Player System</h3><p>Career pages and searchable player stats.</p></div>
+    <div class="card"><h3>Team System</h3><p>Team profiles, squads and rankings.</p></div>
+    <div class="card"><h3>Admin Panel</h3><p>Manage matches, players and teams.</p></div>
   </div>
-</section>
-
-<section id="live" class="section">
-  <div class="wrap">
-    <div class="sectionHead">
-      <div>
-        <h2>Featured Live Match</h2>
-        <p>Highlighted by CricYug</p>
-      </div>
-      <input id="searchInput" class="searchInput" placeholder="Search team or venue..." />
-    </div>
-    <div id="featuredMatch"></div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="sectionHead">
-      <h2>Live Match Center</h2>
-      <p>Auto-updates from CricYug API</p>
-    </div>
-    <div id="matches" class="matchGrid">
-      <div class="loadingCard">Loading matches...</div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="sectionHead">
-      <h2>Why CricYug</h2>
-      <p>Built differently for modern cricket fans</p>
-    </div>
-    <div class="grid3">
-      <div class="card"><div class="pill">LIVE DATA</div><h3>Fast Match Updates</h3><p class="muted">Live matches are loaded through API and updated regularly for a faster experience.</p></div>
-      <div class="card"><div class="pill">SMART UI</div><h3>Professional Design</h3><p class="muted">A cleaner card-based design with featured match support and premium layout.</p></div>
-      <div class="card"><div class="pill">AI READY</div><h3>Future Expansion</h3><p class="muted">CricYug is structured for AI summaries, prediction, player analysis and more.</p></div>
-    </div>
-  </div>
-</section>
-
-<footer class="footer">
-  <div class="wrap">
-    <div class="footerTop">
-      <div>
-        <div style="font-weight:800;color:#fff">CricYug</div>
-        <div>Live Cricket. Smart Insights. Built for the Future.</div>
-      </div>
-      <div class="footerLinks">
-        <a href="index.html">Home</a>
-        <a href="news.html">News</a>
-        <a href="players.html">Players</a>
-        <a href="teams.html">Teams</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-        <a href="privacy.html">Privacy</a>
-        <a href="404.html">404</a>
-      </div>
-    </div>
-    <div class="notice">
-      CricYug is an independent cricket platform and is not affiliated with Cricbuzz, ICC, BCCI, or any cricket board.
-    </div>
-  </div>
-</footer>
-
-<script src="js/site.js"></script>
-<script src="js/main.js"></script>
+</div>
+<div class="footer container">CricYug complete starter repository.</div>
+<script src="js/app.js"></script>
 </body>
 </html>

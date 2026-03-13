@@ -1,0 +1,20 @@
+[
+  {
+    "team1": "India",
+    "team2": "Australia",
+    "venue": "Mumbai",
+    "status": "Live"
+  },
+  {
+    "team1": "England",
+    "team2": "New Zealand",
+    "venue": "London",
+    "status": "Upcoming"
+  },
+  {
+    "team1": "Pakistan",
+    "team2": "South Africa",
+    "venue": "Cape Town",
+    "status": "Upcoming"
+  }
+]
