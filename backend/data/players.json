@@ -1,0 +1,26 @@
+[
+  {
+    "slug": "virat-kohli",
+    "name": "Virat Kohli",
+    "country": "India",
+    "matches": 500,
+    "runs": 25000,
+    "wickets": 8
+  },
+  {
+    "slug": "rohit-sharma",
+    "name": "Rohit Sharma",
+    "country": "India",
+    "matches": 450,
+    "runs": 18000,
+    "wickets": 10
+  },
+  {
+    "slug": "joe-root",
+    "name": "Joe Root",
+    "country": "England",
+    "matches": 420,
+    "runs": 17000,
+    "wickets": 15
+  }
+]

@@ -1,0 +1,13 @@
+
+body{font-family:Arial,sans-serif;background:#091820;color:#fff;margin:0}
+header{background:#0f3a46;padding:20px}
+header h1{margin:0 0 8px 0}
+nav a{color:#fff;text-decoration:none;margin-right:14px}
+.container{max-width:1100px;margin:auto;padding:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.card{background:#184856;border-radius:12px;padding:16px}
+a{color:#7edcff}
+.small{opacity:.8}
+button,input{padding:10px;border-radius:8px;border:0}
+button{background:#22b5d4;color:#04232d;font-weight:700}
+input{width:100%;box-sizing:border-box;margin-bottom:10px}

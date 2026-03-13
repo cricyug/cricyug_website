@@ -1,0 +1,20 @@
+[
+  {
+    "slug": "india",
+    "team": "India",
+    "country": "India",
+    "captain": "Rohit Sharma",
+    "matches": 1200,
+    "wins": 700,
+    "ranking": 1
+  },
+  {
+    "slug": "australia",
+    "team": "Australia",
+    "country": "Australia",
+    "captain": "Pat Cummins",
+    "matches": 1100,
+    "wins": 650,
+    "ranking": 2
+  }
+]

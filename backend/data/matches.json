@@ -1,0 +1,26 @@
+[
+  {
+    "slug": "india-vs-australia",
+    "team1": "India",
+    "team2": "Australia",
+    "venue": "Mumbai",
+    "status": "Live",
+    "score": "145/3 (15.2)"
+  },
+  {
+    "slug": "england-vs-new-zealand",
+    "team1": "England",
+    "team2": "New Zealand",
+    "venue": "London",
+    "status": "Upcoming",
+    "score": "-"
+  },
+  {
+    "slug": "south-africa-vs-pakistan",
+    "team1": "South Africa",
+    "team2": "Pakistan",
+    "venue": "Cape Town",
+    "status": "Upcoming",
+    "score": "-"
+  }
+]
