@@ -1,0 +1,20 @@
+[
+  {
+    "slug": "india",
+    "name": "India",
+    "ranking": 1,
+    "captain": "Rohit Sharma"
+  },
+  {
+    "slug": "australia",
+    "name": "Australia",
+    "ranking": 2,
+    "captain": "Pat Cummins"
+  },
+  {
+    "slug": "england",
+    "name": "England",
+    "ranking": 3,
+    "captain": "Jos Buttler"
+  }
+]
