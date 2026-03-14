@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Virat Kohli",
+    "team": "India",
+    "runs": 25000
+  },
+  {
+    "name": "Rohit Sharma",
+    "team": "India",
+    "runs": 18000
+  },
+  {
+    "name": "Joe Root",
+    "team": "England",
+    "runs": 17000
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "match": "India vs Australia",
+    "status": "Live"
+  },
+  {
+    "match": "England vs New Zealand",
+    "status": "Upcoming"
+  },
+  {
+    "match": "South Africa vs Pakistan",
+    "status": "Upcoming"
+  }
+]

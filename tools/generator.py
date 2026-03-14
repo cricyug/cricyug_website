@@ -1,0 +1,2 @@
+
+print("CricYug generator placeholder")
